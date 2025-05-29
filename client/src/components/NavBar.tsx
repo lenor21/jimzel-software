@@ -1,19 +1,37 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import { BreadCrumb } from 'primereact/breadcrumb';
 
 const NavBar = () => {
-  return (
-    <div className='bg-[#07796b] flex items-center'>
-      <h1 className='flex bg-[#034d40] text-white max-w-fit py-2 pr-5'>
-        <Link to='/'>
-          <img src={logo} alt='logo' className='w-[42px] h-42px mr-3 ml-2' />
-        </Link>
-        <p className='text-5xl font-bold flex items-center'>PAYROLL</p>
-      </h1>
+  const home = { icon: 'pi pi-home', url: '/dashboard' };
 
-      <p className='text-white pl-5 text-2xl font-semibold'>
-        JIMZEL SOFTWARE (Your Business Name)
-      </p>
+  const items = [
+    { label: 'MASTER TABLE', url: '/categories/electronics' },
+    { label: 'Employee', url: '/categories/electronics/computers' },
+    { label: 'Employee', disabled: true },
+  ];
+
+  return (
+    <div>
+      <div className='bg-[#07796b] flex flex-col gap-1 items-center lg:flex-row'>
+        <h1 className='flex bg-[#034d40] text-white max-w-fit py-2 pr-5'>
+          <Link to='/'>
+            <img src={logo} alt='logo' className='w-[42px] h-42px mr-3 ml-2' />
+          </Link>
+          <p className='text-5xl font-bold flex items-center'>PAYROLL</p>
+        </h1>
+
+        <p className='text-white text-xl lg:pl-5 lg:text-2xl font-semibold'>
+          JIMZEL SOFTWARE <br className='lg:hidden' /> (Your Business Name)
+        </p>
+      </div>
+      <div className='shadow-md'>
+        <BreadCrumb
+          model={items}
+          home={home}
+          className='text-[#a0a0a0] p-2 text-sm whitespace-nowrap'
+        />
+      </div>
     </div>
   );
 };
