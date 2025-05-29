@@ -185,7 +185,7 @@ const updateEmployee = asyncHandler(async (req, res) => {
       [employeeId]
     );
 
-    res.status(200).json(updatedEmployee);
+    res.status(200).json(updatedEmployee[0]);
   } catch (error) {
     res.status(500).json({
       message: "Failed to update employees",

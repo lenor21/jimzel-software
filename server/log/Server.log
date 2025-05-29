@@ -92,3 +92,17 @@
 ::1 - Thu May 29 2025 10:43:29 GMT+0800 (Philippine Standard Time) - POST /api/employees HTTP/1.1 400 50 - 9 - PostmanRuntime/7.44.0
 ::1 - Thu May 29 2025 10:43:34 GMT+0800 (Philippine Standard Time) - POST /api/employees HTTP/1.1 201 131 - 10 - PostmanRuntime/7.44.0
 ::1 - Thu May 29 2025 10:43:37 GMT+0800 (Philippine Standard Time) - GET /api/employees HTTP/1.1 200 - - 5 - PostmanRuntime/7.44.0
+::1 - Thu May 29 2025 21:23:43 GMT+0800 (Philippine Standard Time) - GET /api/employees HTTP/1.1 500 88 - 10 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:24:56 GMT+0800 (Philippine Standard Time) - GET /api/employees HTTP/1.1 200 245 - 216 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:25:53 GMT+0800 (Philippine Standard Time) - POST /api/employees HTTP/1.1 400 43 - 1 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:26:21 GMT+0800 (Philippine Standard Time) - POST /api/employees HTTP/1.1 201 129 - 174 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:26:53 GMT+0800 (Philippine Standard Time) - GET /api/employees/1 HTTP/1.1 200 121 - 3 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:27:00 GMT+0800 (Philippine Standard Time) - GET /api/employees/4 HTTP/1.1 200 33 - 2 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:27:45 GMT+0800 (Philippine Standard Time) - GET /api/employees/1 HTTP/1.1 200 121 - 3 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:28:09 GMT+0800 (Philippine Standard Time) - GET /api/employees/1 HTTP/1.1 200 121 - 3 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:28:18 GMT+0800 (Philippine Standard Time) - PUT /api/employees/1 HTTP/1.1 200 135 - 5 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:29:01 GMT+0800 (Philippine Standard Time) - DELETE /api/employees/1 HTTP/1.1 200 202 - 4 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:30:46 GMT+0800 (Philippine Standard Time) - PUT /api/employees/1 HTTP/1.1 404 32 - 35 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:30:51 GMT+0800 (Philippine Standard Time) - PUT /api/employees/2 HTTP/1.1 200 133 - 7 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:31:15 GMT+0800 (Philippine Standard Time) - GET /api/employees/2 HTTP/1.1 200 133 - 4 - PostmanRuntime/7.43.3
+::1 - Thu May 29 2025 21:31:21 GMT+0800 (Philippine Standard Time) - DELETE /api/employees/3 HTTP/1.1 200 196 - 5 - PostmanRuntime/7.43.3
