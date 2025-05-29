@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+var mysql = require("mysql2");
 
 var pool = mysql.createPool({
   connectionLimit: 10,
@@ -30,4 +30,4 @@ pool.on("release", function (connection) {
   console.log("Connection %d released", connection.threadId);
 });
 
-module.exports = pool;
+module.exports = pool.promise();
