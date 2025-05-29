@@ -4,7 +4,6 @@ import './index.css';
 import { PrimeReactProvider } from 'primereact/api';
 import router from './routers/router.tsx';
 import { RouterProvider } from 'react-router-dom';
-import Tailwind from 'primereact/passthrough/tailwind';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
