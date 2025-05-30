@@ -30,6 +30,47 @@ const Root = () => {
     }
   }, [selectedEmployee]);
 
+  const handleEmployeeAdd = () => {
+    dispatch(clearSelectedEmployee());
+    navigate('/master-table/employees/add');
+  };
+
+  const handleEmployeeUpdate = () => {
+    if (!selectedEmployee) {
+      Swal.fire({
+        color: '#0a0a0a',
+        position: 'center',
+        icon: 'error',
+        title: `Please select an employee to view`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate('/master-table/employees');
+    }
+
+    if (selectedEmployee && 'id' in selectedEmployee) {
+      navigate(`/master-table/employees/update/${(selectedEmployee as Employee).id}`);
+    }
+  };
+
+  const handleEmployeeDetails = () => {
+    if (!selectedEmployee) {
+      Swal.fire({
+        color: '#0a0a0a',
+        position: 'center',
+        icon: 'error',
+        title: `Please select an employee to view`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate('/master-table/employees');
+    }
+
+    if (selectedEmployee && 'id' in selectedEmployee) {
+      navigate(`/master-table/employees/${(selectedEmployee as Employee).id}`);
+    }
+  };
+
   const handleEmployeeDelete = () => {
     if (!selectedEmployee) {
       Swal.fire({
@@ -54,9 +95,10 @@ const Root = () => {
         confirmButtonText: 'Yes, delete it!',
       }).then(async (result) => {
         if (result.isConfirmed) {
-          if (selectedEmployee && 'id' in selectedEmployee) {
+          if (selectedEmployee) {
             await deleteEmployee((selectedEmployee as Employee).id).unwrap();
             dispatch(clearSelectedEmployee());
+            navigate('/master-table/employees');
           }
 
           Swal.fire({
@@ -89,24 +131,21 @@ const Root = () => {
               label='Add'
               severity='info'
               className='py-1 px-3'
-              onClick={() => {
-                navigate('/master-table/employees/add');
-              }}
+              onClick={handleEmployeeAdd}
             />
             <Button
               icon='pi pi-pencil'
               label='Edit'
               severity='success'
               className='py-1 px-3'
+              onClick={handleEmployeeUpdate}
             />
             <Button
               icon='pi pi-search'
               label='View'
               severity='warning'
               className='py-1 px-3'
-              onClick={() => {
-                navigate(`/master-table/employees/:${selectedEmployee.id}`);
-              }}
+              onClick={handleEmployeeDetails}
             />
             <Button
               icon='pi pi-trash'

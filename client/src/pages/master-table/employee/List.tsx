@@ -102,7 +102,7 @@ const List = () => {
           totalRecords={totalCounts}
           rowsPerPageOptions={[5, 10, 15]}
           onPageChange={onPageChange}
-          className='hidden lg:block'
+          className='p-paginator-sm text-sm p-2 hidden lg:block'
         />
         <Paginator
           first={first}

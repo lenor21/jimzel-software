@@ -7,6 +7,7 @@ import Counter from '../pages/master-table/employee/Counter';
 import RootMasterTable from '../pages/master-table/RootMasterTable';
 import List from '../pages/master-table/employee/List';
 import Employee from '../pages/master-table/employee/Employee';
+import Update from '../pages/master-table/employee/Update';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
               {
                 path: '/master-table/employees/add',
                 element: <Add />,
+              },
+              {
+                path: '/master-table/employees/update/:id',
+                element: <Update />,
               },
               {
                 path: '/master-table/employees/:id',

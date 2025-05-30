@@ -7,15 +7,10 @@ interface Employee {
   email: string;
 }
 
-const Employee = () => {
+const Update = () => {
   const { selectedEmployee } = useSelector((state: RootState) => state.employee);
 
-  return (
-    <div>
-      Employee <br />
-      {selectedEmployee && (selectedEmployee as Employee).id}
-    </div>
-  );
+  return <div>Update {selectedEmployee && (selectedEmployee as Employee).id}</div>;
 };
 
-export default Employee;
+export default Update;
