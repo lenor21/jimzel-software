@@ -5,6 +5,7 @@ import RootEmployee from '../pages/master-table/employee/RootEmployee';
 import Employee from '../pages/master-table/employee/Employee';
 import Index from '../pages/master-table/employee/Index';
 import RootMasterTable from '../pages/master-table/RootMasterTable';
+import List from '../pages/master-table/employee/List';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: '/master-table/employees',
-                element: <Index />,
+                element: <List />,
               },
               {
                 path: '/master-table/employees/add',
