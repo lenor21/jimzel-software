@@ -1,11 +1,6 @@
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
-
-interface Employee {
-  id: number;
-  username: string;
-  email: string;
-}
+import type { Employee } from '../../../types/employee/employeeTypes';
 
 const Update = () => {
   const { selectedEmployee } = useSelector((state: RootState) => state.employee);

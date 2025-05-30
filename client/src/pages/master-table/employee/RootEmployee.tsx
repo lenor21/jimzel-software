@@ -8,12 +8,7 @@ import Swal from 'sweetalert2';
 import { useDeleteEmployeeMutation } from '../../../features/employee/employeeApiSlice';
 import { clearSelectedEmployee } from '../../../features/employee/employeeSlice';
 import { useDispatch } from 'react-redux';
-
-interface Employee {
-  id: number;
-  username: string;
-  email: string;
-}
+import type { Employee } from '../../../types/employee/employeeTypes';
 
 const Root = () => {
   const navigate = useNavigate();
@@ -46,6 +41,7 @@ const Root = () => {
         timer: 1500,
       });
       navigate('/master-table/employees');
+      return;
     }
 
     if (selectedEmployee && 'id' in selectedEmployee) {
@@ -64,6 +60,7 @@ const Root = () => {
         timer: 1500,
       });
       navigate('/master-table/employees');
+      return;
     }
 
     if (selectedEmployee && 'id' in selectedEmployee) {
@@ -81,6 +78,7 @@ const Root = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+      navigate('/master-table/employees');
       return;
     }
 

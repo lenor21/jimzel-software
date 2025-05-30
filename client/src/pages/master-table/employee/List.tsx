@@ -5,12 +5,7 @@ import { useGetEmployeesQuery } from '../../../features/employee/employeeApiSlic
 import { Paginator, type PaginatorPageChangeEvent } from 'primereact/paginator';
 import { addSelectedEmployee } from '../../../features/employee/employeeSlice';
 import { useDispatch } from 'react-redux';
-
-export interface Employee {
-  id: number;
-  username: string;
-  email: string;
-}
+import type { Employee } from '../../../types/employee/employeeTypes';
 
 const List = () => {
   const [employeesData, setEmployeesData] = useState<Employee[]>([]);
