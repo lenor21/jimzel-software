@@ -1,7 +1,6 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { useState, useEffect } from 'react';
-import { RadioButton } from 'primereact/radiobutton';
 
 interface Product {
   id: string;
@@ -56,11 +55,11 @@ const List = () => {
       <DataTable
         value={products}
         tableStyle={{ minWidth: '50rem' }}
-        onSelectionChange={(e: any) => setSelectedProduct(e.value)}
-        selection={selectedProduct}>
-        <Column style={{ width: '25%' }}>
-          <RadioButton inputId='ingredient1' name='pizza' value='Cheese' />
-        </Column>
+        onSelectionChange={(e) => setSelectedProduct(e.value as Product)}
+        selection={selectedProduct}
+        selectionMode='radiobutton'
+        dataKey='id'>
+        <Column selectionMode='single' headerStyle={{ width: '3rem' }}></Column>
         <Column
           field='code'
           header='Code'
@@ -74,6 +73,51 @@ const List = () => {
         <Column
           field='category'
           header='Category'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
+          field='quantity'
+          header='Quantity'
           sortable
           style={{ width: '25%' }}></Column>
         <Column
