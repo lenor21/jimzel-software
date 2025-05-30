@@ -15,8 +15,7 @@ const List = () => {
   const [selectedProduct, setSelectedProduct] = useState<Employee | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [first, setFirst] = useState(1);
-  const [rows, setRows] = useState(10);
+  const [rows, setRows] = useState(5);
 
   const { data: employeesDataRaw } = useGetEmployeesQuery({
     page: currentPage,
@@ -41,7 +40,7 @@ const List = () => {
   }, [employeesDataRaw]);
 
   const onPageChange = (event: any) => {
-    setFirst(event.first);
+    setCurrentPage(event.page + 1);
     setRows(event.rows);
   };
 
@@ -68,7 +67,7 @@ const List = () => {
       </DataTable>
       <div>
         <Paginator
-          first={currentPage}
+          first={currentPage - 1}
           rows={rows}
           totalRecords={totalPages}
           rowsPerPageOptions={[5, 10, 15]}
