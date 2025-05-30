@@ -1,9 +1,22 @@
 import { Outlet } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../../app/store';
+import { useEffect } from 'react';
 
 const Root = () => {
   const navigate = useNavigate();
+
+  const { selectedEmployee } = useSelector(
+    (state: RootState) => state.employee
+  );
+
+  useEffect(() => {
+    if (selectedEmployee) {
+      console.log(selectedEmployee);
+    }
+  }, [selectedEmployee]);
 
   return (
     <div className='container mx-auto px-3 lg:px-6'>
@@ -31,6 +44,9 @@ const Root = () => {
               label='View'
               severity='warning'
               className='py-1 px-3'
+              onClick={() => {
+                navigate(`/master-table/employees/:${selectedEmployee.id}`);
+              }}
             />
             <Button
               icon='pi pi-trash'

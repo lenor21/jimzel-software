@@ -3,7 +3,7 @@ import { Column } from 'primereact/column';
 import { useState, useEffect } from 'react';
 import { useGetEmployeesQuery } from '../../../features/employee/employeeApiSlice';
 import { Paginator, type PaginatorPageChangeEvent } from 'primereact/paginator';
-import { setSelectedEmployee } from '../../../features/employee/employeeSlice';
+import { addSelectedEmployee } from '../../../features/employee/employeeSlice';
 import { useDispatch } from 'react-redux';
 
 interface Employee {
@@ -29,10 +29,6 @@ const List = () => {
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(setSelectedEmployee(selectedEmployee));
-  // }, [selectedEmployee]);
-
   useEffect(() => {
     if (employeesDataRaw) {
       const employees = employeesDataRaw.employees;
@@ -54,14 +50,21 @@ const List = () => {
     }
   }, [employeesDataRaw]);
 
-  useEffect(() => {
-    console.log(selectedEmployee);
-  }, [selectedEmployee]);
-
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setCurrentPage(event.page + 1);
     setFirst(event.first);
     setRows(event.rows);
+  };
+
+  const handleSelectionChange = (e: any) => {
+    const selectedEmployee = e.value as Employee; // Cast value to Employee type
+    setSelectedEmployee(selectedEmployee);
+
+    if (selectedEmployee) {
+      dispatch(addSelectedEmployee(selectedEmployee));
+    } else {
+      dispatch(addSelectedEmployee(null));
+    }
   };
 
   return (
@@ -69,7 +72,7 @@ const List = () => {
       <DataTable
         value={employeesData}
         tableStyle={{ minWidth: '50rem' }}
-        onSelectionChange={(e) => setSelectedEmployee(e.value as Employee)}
+        onSelectionChange={handleSelectionChange}
         selection={selectedEmployee}
         selectionMode='radiobutton'
         dataKey='id'>
