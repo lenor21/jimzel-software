@@ -11,7 +11,14 @@ export const employeesApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Employee'],
     }),
+    deleteEmployee: builder.mutation({
+      query: (id) => ({
+        url: `${EMPLOYEES_URL}/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Employee'],
+    }),
   }),
 });
 
-export const { useGetEmployeesQuery } = employeesApiSlice;
+export const { useGetEmployeesQuery, useDeleteEmployeeMutation } = employeesApiSlice;

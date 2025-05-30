@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  selectedEmployee: localStorage.getItem('selectedEmployee')
-    ? JSON.parse(localStorage.getItem('selectedEmployee') || '{}')
-    : null,
+  selectedEmployee: null,
+  // selectedEmployee: localStorage.getItem('selectedEmployee') ? JSON.parse(localStorage.getItem('selectedEmployee') || '{}') : null,
 };
 
 const employeeSlice = createSlice({
@@ -12,11 +11,14 @@ const employeeSlice = createSlice({
   reducers: {
     addSelectedEmployee: (state, action) => {
       state.selectedEmployee = action.payload;
-      localStorage.setItem('selectedEmployee', JSON.stringify(action.payload));
+      // localStorage.setItem('selectedEmployee', JSON.stringify(action.payload));
+    },
+    clearSelectedEmployee: (state) => {
+      state.selectedEmployee = null;
     },
   },
 });
 
-export const { addSelectedEmployee } = employeeSlice.actions;
+export const { addSelectedEmployee, clearSelectedEmployee } = employeeSlice.actions;
 
 export default employeeSlice.reducer;

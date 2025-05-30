@@ -6,7 +6,7 @@ import { Paginator, type PaginatorPageChangeEvent } from 'primereact/paginator';
 import { addSelectedEmployee } from '../../../features/employee/employeeSlice';
 import { useDispatch } from 'react-redux';
 
-interface Employee {
+export interface Employee {
   id: number;
   username: string;
   email: string;
@@ -14,9 +14,7 @@ interface Employee {
 
 const List = () => {
   const [employeesData, setEmployeesData] = useState<Employee[]>([]);
-  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
-    null
-  );
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCounts, setTotalCounts] = useState(0);
   const [rows, setRows] = useState(5);
@@ -41,10 +39,7 @@ const List = () => {
       });
 
       setEmployeesData(processedEmployees);
-      setFirst(
-        (employeesDataRaw.pagination.currentPage - 1) *
-          employeesDataRaw.pagination.limit
-      );
+      setFirst((employeesDataRaw.pagination.currentPage - 1) * employeesDataRaw.pagination.limit);
       setCurrentPage(employeesDataRaw.pagination.currentPage);
       setTotalCounts(employeesDataRaw.pagination.totalCount);
     }
@@ -75,23 +70,30 @@ const List = () => {
         onSelectionChange={handleSelectionChange}
         selection={selectedEmployee}
         selectionMode='radiobutton'
-        dataKey='id'>
-        <Column selectionMode='single' headerStyle={{ width: '3rem' }}></Column>
+        dataKey='id'
+      >
+        <Column
+          selectionMode='single'
+          headerStyle={{ width: '3rem' }}
+        ></Column>
         <Column
           field='id'
           header='Id'
           sortable
-          style={{ width: '25%' }}></Column>
+          style={{ width: '25%' }}
+        ></Column>
         <Column
           field='username'
           header='Username'
           sortable
-          style={{ width: '25%' }}></Column>
+          style={{ width: '25%' }}
+        ></Column>
         <Column
           field='email'
           header='Email'
           sortable
-          style={{ width: '25%' }}></Column>
+          style={{ width: '25%' }}
+        ></Column>
       </DataTable>
       <div className='flex justify-center lg:justify-end mt-4'>
         <Paginator
