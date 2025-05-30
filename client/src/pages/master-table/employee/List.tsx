@@ -1,131 +1,80 @@
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { useState, useEffect } from 'react';
+import { useGetEmployeesQuery } from '../../../features/employee/employeeApiSlice';
+import { Paginator } from 'primereact/paginator';
 
-interface Product {
-  id: string;
-  code: string;
-  name: string;
-  description: string;
-  image: string;
-  price: number;
-  category: string;
-  quantity: number;
-  inventoryStatus: string;
-  rating: number;
+interface Employee {
+  id: number;
+  username: string;
+  email: string;
 }
 
-const data = [
-  {
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 65,
-    category: 'Accessories',
-    quantity: 25,
-    inventoryStatus: 'INSTOCK',
-    rating: 5,
-  },
-  {
-    id: '2000',
-    code: 'f230fh0g4',
-    name: 'Tamboo Watch',
-    description: 'Product Description',
-    image: 'bamboo-watch.jpg',
-    price: 66,
-    category: 'Bccessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5,
-  },
-];
-
 const List = () => {
-  const [products, setProducts] = useState<Product[]>(data);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [employeesData, setEmployeesData] = useState<Employee[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Employee | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [first, setFirst] = useState(1);
+  const [rows, setRows] = useState(10);
 
-  //   useEffect(() => {
-  //     ProductService.getProductsMini().then((data) => setProducts(data));
-  //   }, []);
+  const { data: employeesDataRaw } = useGetEmployeesQuery({
+    page: currentPage,
+    limit: rows,
+  });
+
+  useEffect(() => {
+    if (employeesDataRaw) {
+      const employees = employeesDataRaw.employees;
+      console.log(employeesDataRaw);
+
+      const processedEmployees = employees.map((employee: Employee) => {
+        return {
+          ...employee,
+        };
+      });
+
+      setEmployeesData(processedEmployees);
+      setCurrentPage(employeesDataRaw.pagination.currentPage);
+      setTotalPages(employeesDataRaw.pagination.totalPages);
+    }
+  }, [employeesDataRaw]);
+
+  const onPageChange = (event: any) => {
+    setFirst(event.first);
+    setRows(event.rows);
+  };
 
   return (
     <div>
       <DataTable
-        value={products}
+        value={employeesData}
         tableStyle={{ minWidth: '50rem' }}
-        onSelectionChange={(e) => setSelectedProduct(e.value as Product)}
+        onSelectionChange={(e) => setSelectedProduct(e.value as Employee)}
         selection={selectedProduct}
         selectionMode='radiobutton'
         dataKey='id'>
         <Column selectionMode='single' headerStyle={{ width: '3rem' }}></Column>
         <Column
-          field='code'
-          header='Code'
+          field='username'
+          header='Username'
           sortable
           style={{ width: '25%' }}></Column>
         <Column
-          field='name'
-          header='Name'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='category'
-          header='Category'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
-          sortable
-          style={{ width: '25%' }}></Column>
-        <Column
-          field='quantity'
-          header='Quantity'
+          field='email'
+          header='Email'
           sortable
           style={{ width: '25%' }}></Column>
       </DataTable>
+      <div>
+        <Paginator
+          first={currentPage}
+          rows={rows}
+          totalRecords={totalPages}
+          rowsPerPageOptions={[5, 10, 15]}
+          onPageChange={onPageChange}
+        />
+      </div>
     </div>
   );
 };
