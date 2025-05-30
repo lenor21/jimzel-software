@@ -7,12 +7,15 @@
   layer(primereact);
 
 @layer tailwind-base {
-  @import 'tailwindcss/preflight';
+  @tailwind base;
 }
 
 @layer tailwind-utilities {
-  @import 'tailwindcss/utilities';
+  @tailwind components;
+  @tailwind utilities;
 }
+
+/* Now you can use both Tailwind and PrimeReact styles together */
 
 body {
   font-family: 'Roboto', sans-serif;

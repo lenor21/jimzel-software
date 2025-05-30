@@ -6,13 +6,39 @@ const asyncHandler = require("express-async-handler");
 const getEmployees = asyncHandler(async (req, res) => {
   let connection;
 
+  // pagination
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 3;
+  const skip = (page - 1) * limit;
+
   try {
     connection = await mysqlpool.getConnection();
 
-    const selectQuery = "SELECT * FROM employees";
-    const [results] = await connection.query(selectQuery);
+    const countQuery = "SELECT COUNT(*) AS totalCount FROM employees";
+    const [countResults] = await connection.query(countQuery);
+    const totalCount = countResults[0].totalCount;
 
-    res.status(200).json(results);
+    const selectQuery = `
+      SELECT *
+      FROM employees
+      ORDER BY id DESC
+      LIMIT ? OFFSET ?
+    `;
+    const [employees] = await connection.query(selectQuery, [limit, skip]);
+
+    const totalPages = Math.ceil(totalCount / limit);
+
+    res.status(200).json({
+      employees,
+      pagination: {
+        totalCount,
+        totalPages,
+        currentPage: page,
+        limit,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      },
+    });
   } catch (error) {
     res.status(500).json({
       message: "Failed to retrieve employees",

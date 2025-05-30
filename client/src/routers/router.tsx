@@ -1,9 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Home from '../pages/Home';
-import Root from '../pages/master-table/Root';
-import Employee from '../pages/master-table/Employee';
-import Index from '../pages/master-table/Index';
+import RootEmployee from '../pages/master-table/employee/RootEmployee';
+import Add from '../pages/master-table/employee/Add';
+import Counter from '../pages/master-table/employee/Counter';
+import RootMasterTable from '../pages/master-table/RootMasterTable';
+import List from '../pages/master-table/employee/List';
+import Employee from '../pages/master-table/employee/Employee';
 
 const router = createBrowserRouter([
   {
@@ -14,15 +17,29 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        element: <Root />,
+        path: '/master-table',
+        element: <RootMasterTable />,
         children: [
           {
-            path: '/master-table',
-            element: <Index />,
-          },
-          {
-            path: '/master-table/employees',
-            element: <Employee />,
+            element: <RootEmployee />,
+            children: [
+              {
+                path: '/master-table/employees',
+                element: <List />,
+              },
+              {
+                path: '/master-table/employees/add',
+                element: <Add />,
+              },
+              {
+                path: '/master-table/employees/:id',
+                element: <Employee />,
+              },
+              {
+                path: '/master-table/employees/count',
+                element: <Counter />,
+              },
+            ],
           },
         ],
       },
