@@ -3,7 +3,7 @@ import App from '../App';
 import Home from '../pages/Home';
 import RootEmployee from '../pages/master-table/employee/RootEmployee';
 import Employee from '../pages/master-table/employee/Employee';
-import Index from '../pages/master-table/employee/Index';
+import Counter from '../pages/master-table/employee/Counter';
 import RootMasterTable from '../pages/master-table/RootMasterTable';
 import List from '../pages/master-table/employee/List';
 
@@ -28,11 +28,11 @@ const router = createBrowserRouter([
               },
               {
                 path: '/master-table/employees/add',
-                element: <Index />,
+                element: <Employee />,
               },
               {
-                path: '/master-table/employees/update',
-                element: <Employee />,
+                path: '/master-table/employees/count',
+                element: <Counter />,
               },
             ],
           },
