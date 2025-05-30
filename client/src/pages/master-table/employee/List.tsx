@@ -14,7 +14,7 @@ const List = () => {
   const [employeesData, setEmployeesData] = useState<Employee[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Employee | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalCounts, setTotalCounts] = useState(0);
   const [rows, setRows] = useState(5);
   const [first, setFirst] = useState(0);
 
@@ -40,7 +40,7 @@ const List = () => {
           employeesDataRaw.pagination.limit
       );
       setCurrentPage(employeesDataRaw.pagination.currentPage);
-      setTotalPages(employeesDataRaw.pagination.totalPages);
+      setTotalCounts(employeesDataRaw.pagination.totalCount);
     }
   }, [employeesDataRaw]);
 
@@ -61,6 +61,11 @@ const List = () => {
         dataKey='id'>
         <Column selectionMode='single' headerStyle={{ width: '3rem' }}></Column>
         <Column
+          field='id'
+          header='Id'
+          sortable
+          style={{ width: '25%' }}></Column>
+        <Column
           field='username'
           header='Username'
           sortable
@@ -71,13 +76,22 @@ const List = () => {
           sortable
           style={{ width: '25%' }}></Column>
       </DataTable>
-      <div>
+      <div className='flex justify-center lg:justify-end mt-4'>
         <Paginator
           first={first}
           rows={rows}
-          totalRecords={totalPages}
+          totalRecords={totalCounts}
           rowsPerPageOptions={[5, 10, 15]}
           onPageChange={onPageChange}
+          className='hidden lg:block'
+        />
+        <Paginator
+          first={first}
+          rows={rows}
+          totalRecords={totalCounts}
+          onPageChange={onPageChange}
+          template='FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink'
+          className='p-paginator-sm text-sm p-2 bg-gray-50 rounded-md block lg:hidden'
         />
       </div>
     </div>
