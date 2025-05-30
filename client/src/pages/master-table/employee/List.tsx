@@ -2,7 +2,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { useState, useEffect } from 'react';
 import { useGetEmployeesQuery } from '../../../features/employee/employeeApiSlice';
-import { Paginator } from 'primereact/paginator';
+import { Paginator, type PaginatorPageChangeEvent } from 'primereact/paginator';
 
 interface Employee {
   id: number;
@@ -16,6 +16,7 @@ const List = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [rows, setRows] = useState(5);
+  const [first, setFirst] = useState(0);
 
   const { data: employeesDataRaw } = useGetEmployeesQuery({
     page: currentPage,
@@ -34,13 +35,18 @@ const List = () => {
       });
 
       setEmployeesData(processedEmployees);
+      setFirst(
+        (employeesDataRaw.pagination.currentPage - 1) *
+          employeesDataRaw.pagination.limit
+      );
       setCurrentPage(employeesDataRaw.pagination.currentPage);
       setTotalPages(employeesDataRaw.pagination.totalPages);
     }
   }, [employeesDataRaw]);
 
-  const onPageChange = (event: any) => {
+  const onPageChange = (event: PaginatorPageChangeEvent) => {
     setCurrentPage(event.page + 1);
+    setFirst(event.first);
     setRows(event.rows);
   };
 
@@ -67,7 +73,7 @@ const List = () => {
       </DataTable>
       <div>
         <Paginator
-          first={currentPage - 1}
+          first={first}
           rows={rows}
           totalRecords={totalPages}
           rowsPerPageOptions={[5, 10, 15]}
