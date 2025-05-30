@@ -109,3 +109,13 @@
 ::1 - Thu May 29 2025 21:31:15 GMT+0800 (Philippine Standard Time) - GET /api/employees/2 HTTP/1.1 200 133 - 4 - PostmanRuntime/7.43.3
 ::1 - Thu May 29 2025 21:31:21 GMT+0800 (Philippine Standard Time) - DELETE /api/employees/3 HTTP/1.1 200 196 - 5 - PostmanRuntime/7.43.3
 >>>>>>> refs/remotes/origin/main
+::1 - Fri May 30 2025 11:35:40 GMT+0800 (Philippine Standard Time) - GET /api/employees HTTP/1.1 200 - - 147 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:36:49 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=2&limit=3 HTTP/1.1 200 - - 24 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:37:17 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=2&limit=3 HTTP/1.1 200 - - 42 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:37:23 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=2 HTTP/1.1 200 - - 7 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:42:12 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=2 HTTP/1.1 200 530 - 89 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:42:27 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=2&limit=5 HTTP/1.1 200 807 - 10 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:43:12 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=1&limit=5 HTTP/1.1 200 791 - 44 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:43:35 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=1&limit=5 HTTP/1.1 200 797 - 33 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:45:12 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=1&limit=5 HTTP/1.1 200 797 - 37 - PostmanRuntime/7.44.0
+::1 - Fri May 30 2025 11:45:17 GMT+0800 (Philippine Standard Time) - GET /api/employees?page=1&limit=2 HTTP/1.1 200 391 - 6 - PostmanRuntime/7.44.0
