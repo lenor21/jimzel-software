@@ -1,7 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { Button } from 'primereact/button';
+import { useNavigate } from 'react-router-dom';
 
 const Root = () => {
+  const navigate = useNavigate();
+
   return (
     <div className='container mx-auto px-3 lg:px-6'>
       <h1 className='my-4 font-bold text-2xl'>EMPLOYEE MASTER</h1>
@@ -13,6 +16,9 @@ const Root = () => {
               label='Add'
               severity='info'
               className='py-1 px-3'
+              onClick={() => {
+                navigate('/master-table/employees/add');
+              }}
             />
             <Button
               icon='pi pi-pencil'

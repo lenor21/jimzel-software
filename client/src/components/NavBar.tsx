@@ -6,8 +6,8 @@ const NavBar = () => {
   const home = { icon: 'pi pi-home', url: '/dashboard' };
 
   const items = [
-    { label: 'MASTER TABLE', url: '/categories/electronics' },
-    { label: 'Employee', url: '/categories/electronics/computers' },
+    { label: 'MASTER TABLE', url: '/master-table' },
+    { label: 'Employee', url: '/master-table/employees' },
     { label: 'Employee', disabled: true },
   ];
 

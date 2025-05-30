@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import Home from '../pages/Home';
 import RootEmployee from '../pages/master-table/employee/RootEmployee';
-import Employee from '../pages/master-table/employee/Employee';
+import Add from '../pages/master-table/employee/Add';
 import Counter from '../pages/master-table/employee/Counter';
 import RootMasterTable from '../pages/master-table/RootMasterTable';
 import List from '../pages/master-table/employee/List';
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
               },
               {
                 path: '/master-table/employees/add',
-                element: <Employee />,
+                element: <Add />,
               },
               {
                 path: '/master-table/employees/count',

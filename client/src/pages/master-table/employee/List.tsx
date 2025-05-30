@@ -3,6 +3,8 @@ import { Column } from 'primereact/column';
 import { useState, useEffect } from 'react';
 import { useGetEmployeesQuery } from '../../../features/employee/employeeApiSlice';
 import { Paginator, type PaginatorPageChangeEvent } from 'primereact/paginator';
+import { setSelectedEmployee } from '../../../features/employee/employeeSlice';
+import { useDispatch } from 'react-redux';
 
 interface Employee {
   id: number;
@@ -12,7 +14,9 @@ interface Employee {
 
 const List = () => {
   const [employeesData, setEmployeesData] = useState<Employee[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<Employee | null>(null);
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(
+    null
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCounts, setTotalCounts] = useState(0);
   const [rows, setRows] = useState(5);
@@ -23,10 +27,16 @@ const List = () => {
     limit: rows,
   });
 
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(setSelectedEmployee(selectedEmployee));
+  // }, [selectedEmployee]);
+
   useEffect(() => {
     if (employeesDataRaw) {
       const employees = employeesDataRaw.employees;
-      console.log(employeesDataRaw);
+      console.log(selectedEmployee);
 
       const processedEmployees = employees.map((employee: Employee) => {
         return {
@@ -44,6 +54,10 @@ const List = () => {
     }
   }, [employeesDataRaw]);
 
+  useEffect(() => {
+    console.log(selectedEmployee);
+  }, [selectedEmployee]);
+
   const onPageChange = (event: PaginatorPageChangeEvent) => {
     setCurrentPage(event.page + 1);
     setFirst(event.first);
@@ -55,8 +69,8 @@ const List = () => {
       <DataTable
         value={employeesData}
         tableStyle={{ minWidth: '50rem' }}
-        onSelectionChange={(e) => setSelectedProduct(e.value as Employee)}
-        selection={selectedProduct}
+        onSelectionChange={(e) => setSelectedEmployee(e.value as Employee)}
+        selection={selectedEmployee}
         selectionMode='radiobutton'
         dataKey='id'>
         <Column selectionMode='single' headerStyle={{ width: '3rem' }}></Column>
