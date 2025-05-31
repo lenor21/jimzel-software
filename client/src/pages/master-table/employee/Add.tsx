@@ -18,35 +18,78 @@ import Bank from '../../../components/form/Bank';
 import Tax from '../../../components/form/witheld/Tax';
 import MinimumEarner from '../../../components/form/MinimumEarner';
 import { Button } from 'primereact/button';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { employeeFormSchema } from '../../../schemas/employeeSchema';
+import type { EmployeeFormValues } from '../../../schemas/employeeSchema';
+import FormError from '../../../components/form/FormError';
 
 const Add = () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<EmployeeFormValues>({
+    resolver: zodResolver(employeeFormSchema),
+    defaultValues: {
+      empID: '',
+      firstname: '',
+      middlename: '',
+      lastname: '',
+    },
+  });
+
+  const onSubmit = async (values: EmployeeFormValues) => {
+    console.log(values);
+  };
+
   return (
     <div>
       <div className='w-full p-2 bg-[#6366f1] text-white rounded text-center'>ADD</div>
       <form
-        action=''
         className='mt-4'
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className='!grid grid-rows-2 lg:grid-rows-1 grid-cols-3 lg:grid-cols-8 gap-3 mb-4'>
           <div className='flex flex-col col-span-1'>
             <label>
               EmpID <RequiredText />
             </label>
-            <InputText
-              type='text'
-              className='p-inputtext-sm w-full'
+            <Controller
+              name='empID'
+              control={control}
+              render={({ field }) => (
+                <InputText
+                  type='text'
+                  id='empID'
+                  {...field}
+                  className={`p-inputtext-sm ${errors.empID && 'p-invalid'}`}
+                />
+              )}
             />
+            {errors.empID?.message && <FormError message={errors.empID.message} />}
           </div>
+
           <div className='flex flex-col col-span-2'>
             <label>
               First Name
               <RequiredText />
             </label>
-            <InputText
-              type='text'
-              className='p-inputtext-sm'
+            <Controller
+              name='firstname'
+              control={control}
+              render={({ field }) => (
+                <InputText
+                  type='text'
+                  id='firstname'
+                  {...field}
+                  className={`p-inputtext-sm ${errors.firstname && 'p-invalid'}`}
+                />
+              )}
             />
+            {errors.firstname?.message && <FormError message={errors.firstname.message} />}
           </div>
+
           <div className='flex flex-col col-span-2'>
             <label>Middle Name</label>
             <InputText
@@ -54,15 +97,25 @@ const Add = () => {
               className='p-inputtext-sm'
             />
           </div>
+
           <div className='flex flex-col col-span-2'>
             <label>
               Last Name
               <RequiredText />
             </label>
-            <InputText
-              type='text'
-              className='p-inputtext-sm'
+            <Controller
+              name='lastname'
+              control={control}
+              render={({ field }) => (
+                <InputText
+                  type='text'
+                  id='lastname'
+                  {...field}
+                  className={`p-inputtext-sm ${errors.lastname && 'p-invalid'}`}
+                />
+              )}
             />
+            {errors.lastname?.message && <FormError message={errors.lastname.message} />}
           </div>
           <div className='flex flex-col col-span-1'>
             <label>Suffix</label>
