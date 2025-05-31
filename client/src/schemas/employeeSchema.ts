@@ -34,10 +34,11 @@ export const employeeFormSchema = z.object({
         message: 'Invalid international phone number format.',
       }
     )
-    .optional(),
+    .optional()
+    .or(z.literal('')),
   ctc: z.string(),
   ctc_place: z.string(),
-  ctc_date: z.string().date().optional().nullable(),
+  ctc_date: z.string().date().optional().or(z.literal('')),
   ctc_amount_paid: z.number().optional(),
   notes: z.string(),
   pay_freq: z.string().nonempty('Pay Frequency is required'),
@@ -46,10 +47,10 @@ export const employeeFormSchema = z.object({
   birthday: z.string().date(),
   date_hired: z.string().date(),
   kasambahay: z.boolean(),
-  regularized: z.string().date().optional().nullable(),
-  separated: z.string().date().optional().nullable(),
-  contract_start: z.string().date().optional().nullable(),
-  contract_end: z.string().date().optional().nullable(),
+  regularized: z.string().date().optional().or(z.literal('')),
+  separated: z.string().date().optional().or(z.literal('')),
+  contract_start: z.string().date().optional().or(z.literal('')),
+  contract_end: z.string().date().optional().or(z.literal('')),
   minimum_earner: z.boolean(),
   minimum_daily: z.number(),
   minimum_monthly: z.number(),

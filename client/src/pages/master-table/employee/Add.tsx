@@ -20,8 +20,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { employeeFormSchema, type EmployeeFormValues } from '../../../schemas/employeeSchema';
 import FormError from '../../../components/form/FormError';
 import { Checkbox } from 'primereact/checkbox';
+import { useAddEmployeeMutation } from '../../../features/employee/employeeApiSlice';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Add = () => {
+  const [addEmployee] = useAddEmployeeMutation();
+
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     control,
@@ -51,19 +58,19 @@ const Add = () => {
       phone: '',
       ctc: '',
       ctc_place: '',
-      ctc_date: undefined,
+      ctc_date: '',
       ctc_amount_paid: 0,
       notes: '',
       pay_freq: '',
       sex: '',
       active: false,
-      birthday: undefined,
-      date_hired: undefined,
+      birthday: '',
+      date_hired: '',
       kasambahay: false,
-      regularized: undefined,
-      separated: undefined,
-      contract_start: undefined,
-      contract_end: undefined,
+      regularized: '',
+      separated: '',
+      contract_start: '',
+      contract_end: '',
       minimum_earner: false,
       minimum_daily: 0,
       minimum_monthly: 0,
@@ -93,6 +100,90 @@ const Add = () => {
 
   const onSubmit: SubmitHandler<EmployeeFormValues> = async (values: EmployeeFormValues) => {
     console.log(values);
+
+    try {
+      const employee = await addEmployee({
+        employee_id: values.employee_id,
+        first_name: values.first_name,
+        middle_name: values.middle_name,
+        last_name: values.last_name,
+        suffix: values.suffix,
+        address: values.address,
+        city: values.city,
+        province: values.province,
+        zip: values.zip,
+        location: values.location,
+        department: values.department,
+        project: values.project,
+        team: values.team,
+        position: values.position,
+        employment: values.employment,
+        user_profile: values.user_profile,
+        manager: values.manager,
+        vendor: values.vendor,
+        email: values.email,
+        phone: values.phone,
+        ctc: values.ctc,
+        ctc_place: values.ctc_place,
+        ctc_date: values.ctc_date,
+        ctc_amount_paid: values.ctc_amount_paid,
+        notes: values.notes,
+        pay_freq: values.pay_freq,
+        sex: values.sex,
+        active: values.active,
+        birthday: values.birthday,
+        date_hired: values.date_hired,
+        kasambahay: values.kasambahay,
+        regularized: values.regularized,
+        separated: values.separated,
+        contract_start: values.contract_start,
+        contract_end: values.contract_end,
+        minimum_earner: values.minimum_earner,
+        minimum_daily: values.minimum_daily,
+        minimum_monthly: values.minimum_monthly,
+        tax_id: values.tax_id,
+        tax_witheld: values.tax_witheld,
+        sss_gsis: values.sss_gsis,
+        sss_gsis_witheld: values.sss_gsis_witheld,
+        phic_id: values.phic_id,
+        phic_witheld: values.phic_witheld,
+        hdmf_id: values.hdmf_id,
+        hdmf_witheld: values.hdmf_witheld,
+        hdmf_account: values.hdmf_account,
+        bank: values.bank,
+        bank_account: values.bank_account,
+        rate_type: values.rate_type,
+        base_monthly_pay: values.base_monthly_pay,
+        days_per_month: values.days_per_month,
+        hours_per_day: values.hours_per_day,
+        daily_rate: values.daily_rate,
+        hourly_rate: values.hourly_rate,
+        col_allowance: values.col_allowance,
+        represent_allowance: values.represent_allowance,
+        housing_allowance: values.housing_allowance,
+        transportation_allowance: values.transportation_allowance,
+      }).unwrap();
+
+      Swal.fire({
+        color: '#0a0a0a',
+        position: 'center',
+        icon: 'success',
+        title: 'Employee has been added',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      navigate('/master-table/employees');
+    } catch (err: any) {
+      Swal.fire({
+        color: '#0a0a0a',
+        position: 'center',
+        icon: 'error',
+        title: `${err.data.message}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   };
 
   return (

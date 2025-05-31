@@ -57,21 +57,21 @@ const addEmployee = asyncHandler(async (req, res) => {
   const userData = req.body;
   let connection;
 
-  // if (
-  //   !userData.employee_id ||
-  //   !userData.first_name ||
-  //   !userData.last_name ||
-  //   !userData.email ||
-  //   !userData.pay_freq ||
-  //   !userData.birthday ||
-  //   !userData.date_hired ||
-  //   !userData.tax_id ||
-  //   !userData.sss_gsis ||
-  //   !userData.phic_id ||
-  //   !userData.hdmf_id
-  // ) {
-  //   res.status(400).json({ message: "Please fill all update fields" });
-  // }
+  if (
+    !userData.employee_id ||
+    !userData.first_name ||
+    !userData.last_name ||
+    !userData.email ||
+    !userData.pay_freq ||
+    !userData.birthday ||
+    !userData.date_hired ||
+    !userData.tax_id ||
+    !userData.sss_gsis ||
+    !userData.phic_id ||
+    !userData.hdmf_id
+  ) {
+    res.status(400).json({ message: "Please fill all update fields" });
+  }
 
   try {
     connection = await mysqlpool.getConnection();
