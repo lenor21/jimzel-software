@@ -57,9 +57,21 @@ const addEmployee = asyncHandler(async (req, res) => {
   const userData = req.body;
   let connection;
 
-  if (!userData.username || !userData.email) {
-    res.status(400).json({ message: "Please fill all update fields" });
-  }
+  // if (
+  //   !userData.employee_id ||
+  //   !userData.first_name ||
+  //   !userData.last_name ||
+  //   !userData.email ||
+  //   !userData.pay_freq ||
+  //   !userData.birthday ||
+  //   !userData.date_hired ||
+  //   !userData.tax_id ||
+  //   !userData.sss_gsis ||
+  //   !userData.phic_id ||
+  //   !userData.hdmf_id
+  // ) {
+  //   res.status(400).json({ message: "Please fill all update fields" });
+  // }
 
   try {
     connection = await mysqlpool.getConnection();
@@ -73,10 +85,137 @@ const addEmployee = asyncHandler(async (req, res) => {
       res.status(400).json({ message: "User with that email already exists." });
     }
 
-    const addQuery = `INSERT INTO employees (username, email) VALUES (?, ?)`;
+    const addQuery = `INSERT INTO employees (
+      employee_id,
+      first_name,
+      middle_name,
+      last_name,
+      suffix,
+      address,
+      city,
+      province,
+      zip,
+      location,
+      department,
+      project,
+      team,
+      position,
+      employment,
+      user_profile,
+      manager,
+      vendor,
+      email,
+      phone,
+      ctc,
+      ctc_place,
+      ctc_date,
+      ctc_amount_paid,
+      notes,
+      pay_freq,
+      sex,
+      active,
+      birthday,
+      date_hired,
+      kasambahay,
+      regularized,
+      separated,
+      contract_start,
+      contract_end,
+      minimum_earner,
+      minimum_daily,
+      minimum_monthly,
+      tax_id,
+      tax_witheld,
+      sss_gsis,
+      sss_gsis_witheld,
+      phic_id,
+      phic_witheld,
+      hdmf_id,
+      hdmf_witheld,
+      hdmf_account,
+      bank,
+      bank_account,
+      rate_type,
+      base_monthly_pay,
+      days_per_month,
+      hours_per_day,
+      daily_rate,
+      hourly_rate,
+      col_allowance,
+      represent_allowance,
+      housing_allowance,
+      transportation_allowance
+    ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+
+    // const addQuery = `INSERT INTO employees (employee_id, first_name, middle_name, email) VALUES (?,?,?,?)`;
+
+    // const [result] = await connection.query(addQuery, [
+    //   userData.employee_id,
+    //   userData.first_name,
+    //   userData.middle_name,
+    //   userData.email,
+    // ]);
+
     const [result] = await connection.query(addQuery, [
-      userData.username,
+      userData.employee_id,
+      userData.first_name,
+      userData.middle_name,
+      userData.last_name,
+      userData.suffix,
+      userData.address,
+      userData.city,
+      userData.province,
+      userData.zip,
+      userData.location,
+      userData.department,
+      userData.project,
+      userData.team,
+      userData.position,
+      userData.employment,
+      userData.user_profile,
+      userData.manager,
+      userData.vendor,
       userData.email,
+      userData.phone,
+      userData.ctc,
+      userData.ctc_place,
+      userData.ctc_date,
+      userData.ctc_amount_paid,
+      userData.notes,
+      userData.pay_freq,
+      userData.sex,
+      userData.active,
+      userData.birthday,
+      userData.date_hired,
+      userData.kasambahay,
+      userData.regularized,
+      userData.separated,
+      userData.contract_start,
+      userData.contract_end,
+      userData.minimum_earner,
+      userData.minimum_daily,
+      userData.minimum_monthly,
+      userData.tax_id,
+      userData.tax_witheld,
+      userData.sss_gsis,
+      userData.sss_gsis_witheld,
+      userData.phic_id,
+      userData.phic_witheld,
+      userData.hdmf_id,
+      userData.hdmf_witheld,
+      userData.hdmf_account,
+      userData.bank,
+      userData.bank_account,
+      userData.rate_type,
+      userData.base_monthly_pay,
+      userData.days_per_month,
+      userData.hours_per_day,
+      userData.daily_rate,
+      userData.hourly_rate,
+      userData.col_allowance,
+      userData.represent_allowance,
+      userData.housing_allowance,
+      userData.transportation_allowance,
     ]);
 
     if (result.affectedRows === 0 || !result.insertId) {
