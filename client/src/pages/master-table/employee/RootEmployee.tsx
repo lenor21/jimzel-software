@@ -121,7 +121,7 @@ const Root = () => {
   return (
     <div className='container mx-auto px-3 lg:px-6'>
       <h1 className='my-4 font-bold text-2xl'>EMPLOYEE MASTER</h1>
-      <div className='p-3 bg-white shadow mt-10'>
+      <div className='p-3 bg-white shadow my-10'>
         <div className='flex justify-between flex-wrap gap-2 mb-4'>
           <div className='flex gap-2 flex-wrap'>
             <Button
@@ -164,7 +164,7 @@ const Root = () => {
             />
           </div>
         </div>
-        <div className='flex mb-6 !border-b-2 !border-b-[#e7e7e7]'>
+        <div className='flex mb-2 !border-b-2 !border-b-[#e7e7e7]'>
           <p className='block px-3 py-2'>LIST</p>
           <p className='block px-3 py-2 !border-b-2 !border-b-[#6366f1] !mb-[-2px] text-[#6366f1]'>DETAIL</p>
         </div>

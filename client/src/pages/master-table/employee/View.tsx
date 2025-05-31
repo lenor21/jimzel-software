@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
 import type { Employee } from '../../../types/employee/employeeTypes';
 
-const Employee = () => {
+const View = () => {
   const { selectedEmployee } = useSelector((state: RootState) => state.employee);
 
   return (
@@ -13,4 +13,4 @@ const Employee = () => {
   );
 };
 
-export default Employee;
+export default View;
