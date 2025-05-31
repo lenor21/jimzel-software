@@ -47,7 +47,7 @@ const List = () => {
   };
 
   const handleSelectionChange = (e: any) => {
-    const selectedEmployee = e.value as Employee; // Cast value to Employee type
+    const selectedEmployee = e.value as Employee;
     setSelectedEmployee(selectedEmployee);
 
     if (selectedEmployee) {
