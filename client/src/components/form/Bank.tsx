@@ -1,33 +1,38 @@
 import { Dropdown } from 'primereact/dropdown';
 import type { DropdownChangeEvent } from 'primereact/dropdown';
-import { useState } from 'react';
 
-interface City {
+interface BankOption {
   name: string;
   code: string;
 }
 
-const Bank = () => {
-  const [selected, setSelected] = useState<City | null>(null);
+interface BankProps {
+  value: string | null;
+  onChange: (value: string | null) => void;
+  name: string;
+  className?: string;
+}
 
-  const options: City[] = [
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
+const Bank = ({ value, onChange, name, className }: BankProps) => {
+  const options: BankOption[] = [
+    { name: 'Metro Bank', code: 'metro_bank' },
+    { name: 'China Bank', code: 'china_bank' },
+    { name: 'BPI', code: 'bpi_bank' },
   ];
+
+  const selectedOption = options.find((option) => option.code === value) || null;
 
   return (
     <Dropdown
       options={options}
       optionLabel='name'
       placeholder='Select a Bank'
-      className='w-full col-span-4'
+      className={`w-full col-span-4 ${className || ''}`}
       checkmark={true}
       highlightOnSelect={false}
-      onChange={(e: DropdownChangeEvent) => setSelected(e.value)}
-      value={selected}
+      onChange={(e: DropdownChangeEvent) => onChange(e.value ? (e.value as BankOption).code : null)}
+      value={selectedOption}
+      name={name}
     />
   );
 };

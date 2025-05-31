@@ -1,33 +1,37 @@
 import { Dropdown } from 'primereact/dropdown';
 import type { DropdownChangeEvent } from 'primereact/dropdown';
-import { useState } from 'react';
 
-interface City {
+interface SexOption {
   name: string;
   code: string;
 }
 
-const Sex = () => {
-  const [selected, setSelected] = useState<City | null>(null);
+interface SexProps {
+  value: string | null;
+  onChange: (value: string | null) => void;
+  name: string;
+  className?: string;
+}
 
-  const options: City[] = [
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
+const Sex = ({ value, onChange, name, className }: SexProps) => {
+  const options: SexOption[] = [
+    { name: 'Male', code: 'male' },
+    { name: 'Female', code: 'female' },
   ];
+
+  const selectedOption = options.find((option) => option.code === value) || null;
 
   return (
     <Dropdown
       options={options}
       optionLabel='name'
-      placeholder='Sex'
-      className='p-inputtext-sm w-full'
+      placeholder='Select a Sex'
+      className={`p-inputtext-sm w-full ${className || ''}`}
       checkmark={true}
       highlightOnSelect={false}
-      onChange={(e: DropdownChangeEvent) => setSelected(e.value)}
-      value={selected}
+      onChange={(e: DropdownChangeEvent) => onChange(e.value ? (e.value as SexOption).code : null)}
+      value={selectedOption}
+      name={name}
     />
   );
 };

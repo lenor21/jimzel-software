@@ -21,6 +21,9 @@ body {
   background: #fafafa;
 }
 
-label {
+label,
+span,
+input,
+textarea {
   font-size: 12px;
 }

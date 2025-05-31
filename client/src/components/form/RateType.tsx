@@ -1,33 +1,37 @@
 import { Dropdown } from 'primereact/dropdown';
 import type { DropdownChangeEvent } from 'primereact/dropdown';
-import { useState } from 'react';
 
-interface City {
+interface RateTypeOption {
   name: string;
   code: string;
 }
 
-const RateType = () => {
-  const [selected, setSelected] = useState<City | null>(null);
+interface RateTypeProps {
+  value: string | null;
+  onChange: (value: string | null) => void;
+  name: string;
+  className?: string;
+}
 
-  const options: City[] = [
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
+const RateType = ({ value, onChange, name, className }: RateTypeProps) => {
+  const options: RateTypeOption[] = [
+    { name: 'Monthly Rate', code: 'monthly_rate' },
+    { name: 'Weekly Rate', code: 'weekly_rate' },
   ];
+
+  const selectedOption = options.find((option) => option.code === value) || null;
 
   return (
     <Dropdown
       options={options}
       optionLabel='name'
-      placeholder='Rate Type'
-      className='w-full col-span-2'
+      placeholder='Select a RateType'
+      className={`w-full col-span-2 ${className || ''}`}
       checkmark={true}
       highlightOnSelect={false}
-      onChange={(e: DropdownChangeEvent) => setSelected(e.value)}
-      value={selected}
+      onChange={(e: DropdownChangeEvent) => onChange(e.value ? (e.value as RateTypeOption).code : null)}
+      value={selectedOption}
+      name={name}
     />
   );
 };

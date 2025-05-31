@@ -18,10 +18,9 @@ import Bank from '../../../components/form/Bank';
 import Tax from '../../../components/form/witheld/Tax';
 import MinimumEarner from '../../../components/form/MinimumEarner';
 import { Button } from 'primereact/button';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { employeeFormSchema } from '../../../schemas/employeeSchema';
-import type { EmployeeFormValues } from '../../../schemas/employeeSchema';
+import { employeeFormSchema, type EmployeeFormValues } from '../../../schemas/employeeSchema';
 import FormError from '../../../components/form/FormError';
 
 const Add = () => {
@@ -52,13 +51,46 @@ const Add = () => {
       vendor: '',
       ctc: '',
       ctc_place: '',
-      ctc_date: '',
+      ctc_date: undefined,
       ctc_amount_paid: 0,
       notes: '',
+      pay_freq: '',
+      sex: '',
+      // active: false,
+      birthday: '',
+      date_hired: '',
+      regularized: undefined,
+      separated: undefined,
+      contract_start: undefined,
+      contract_end: undefined,
+      // minimum_earner: false,
+      // minimum_daily: 0,
+      // minimum_monthly: 0,
+      // tax_id: '',
+      // tax_witheld: false,
+      // sss_gsis: '',
+      // sss_gsis_witheld: false,
+      // phic_id: '',
+      // phic_witheld: false,
+      // hdmf_id: '',
+      // hdmf_witheld: false,
+      // hdmf_account: '',
+      bank: '',
+      // bank_account: '',
+      rate_type: '',
+      // base_monthly_pay: 0,
+      // days_per_month: 0,
+      // hours_per_day: 0,
+      // daily_rate: 0,
+      // hourly_rate: 0,
+      // col_allowance: 0,
+      // represent_allowance: 0,
+      // housing_allowance: 0,
+      // transportation_allowance: 0,
     },
   });
 
-  const onSubmit = async (values: EmployeeFormValues) => {
+  const onSubmit: SubmitHandler<EmployeeFormValues> = async (values: EmployeeFormValues) => {
     console.log(values);
   };
 
@@ -543,10 +575,34 @@ const Add = () => {
                 Pay Freq <RequiredText />
               </label>
               <div className='flex flex-wrap lg:!grid lg:grid-cols-5 col-span-4 gap-3'>
-                <PayFrequency />
+                <Controller
+                  name='pay_freq'
+                  control={control}
+                  render={({ field }) => (
+                    <PayFrequency
+                      value={field.value}
+                      onChange={field.onChange}
+                      name={field.name}
+                      className={errors.pay_freq ? 'p-invalid' : ''}
+                    />
+                  )}
+                />
+                {errors.pay_freq?.message && <FormError message={errors.pay_freq.message} />}
                 <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Sex</label>
-                  <Sex />
+                  <Controller
+                    name='sex'
+                    control={control}
+                    render={({ field }) => (
+                      <Sex
+                        value={field.value}
+                        onChange={field.onChange}
+                        name={field.name}
+                        className={errors.sex ? 'p-invalid' : ''}
+                      />
+                    )}
+                  />
+                  {errors.sex?.message && <FormError message={errors.sex.message} />}
                 </div>
                 <div className='w-full flex gap-2 items-center lg:col-span-1 justify-end lg:justify-center'>
                   <label>Active</label>
@@ -556,18 +612,42 @@ const Add = () => {
             </div>
 
             <div className='!grid grid-cols-5 lg:items-center'>
-              <label className='col-span-1 mt-2 lg:mt-0'>Birthday</label>
+              <label className='col-span-1 mt-2 lg:mt-0'>
+                Birthday
+                <RequiredText />
+              </label>
               <div className='flex flex-wrap lg:!grid lg:grid-cols-8 col-span-4 gap-3'>
-                <InputText
-                  type='date'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='birthday'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='date'
+                      id='birthday'
+                      {...field}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.birthday && 'p-invalid'}`}
+                    />
+                  )}
                 />
+                {errors.birthday?.message && <FormError message={errors.birthday.message} />}
                 <div className='w-full flex gap-2 items-center lg:col-span-3'>
-                  <label>Date Hired</label>
-                  <InputText
-                    type='date'
-                    className='p-inputtext-sm w-full col-span-1'
+                  <label>
+                    Date Hired
+                    <RequiredText />
+                  </label>
+                  <Controller
+                    name='date_hired'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='date'
+                        id='date_hired'
+                        {...field}
+                        className={`p-inputtext-sm w-full col-span-1 ${errors.date_hired && 'p-invalid'}`}
+                      />
+                    )}
                   />
+                  {errors.date_hired?.message && <FormError message={errors.date_hired.message} />}
                 </div>
                 <div className='w-full flex gap-4 items-center lg:col-span-3 justify-end'>
                   <label>
@@ -587,16 +667,34 @@ const Add = () => {
                 ized
               </label>
               <div className='flex flex-wrap lg:!grid lg:grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='date'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='regularized'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='date'
+                      id='regularized'
+                      {...field}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.regularized && 'p-invalid'}`}
+                    />
+                  )}
                 />
+                {errors.regularized?.message && <FormError message={errors.regularized.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Separated</label>
-                  <InputText
-                    type='date'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='separated'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='date'
+                        id='separated'
+                        {...field}
+                        className={`p-inputtext-sm w-full ${errors.separated && 'p-invalid'}`}
+                      />
+                    )}
                   />
+                  {errors.separated?.message && <FormError message={errors.separated.message} />}
                 </div>
               </div>
             </div>
@@ -604,16 +702,34 @@ const Add = () => {
             <div className='!grid grid-cols-5 lg:items-center'>
               <label className='col-span-1 mt-2 lg:mt-0'>Contract Start</label>
               <div className='flex flex-wrap lg:!grid lg:grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='date'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='contract_start'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='date'
+                      id='contract_start'
+                      {...field}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.contract_start && 'p-invalid'}`}
+                    />
+                  )}
                 />
+                {errors.contract_start?.message && <FormError message={errors.contract_start.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Contract End</label>
-                  <InputText
-                    type='date'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='contract_end'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='date'
+                        id='contract_end'
+                        {...field}
+                        className={`p-inputtext-sm w-full ${errors.contract_end && 'p-invalid'}`}
+                      />
+                    )}
                   />
+                  {errors.contract_end?.message && <FormError message={errors.contract_end.message} />}
                 </div>
               </div>
             </div>
@@ -698,7 +814,19 @@ const Add = () => {
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Bank</label>
-              <Bank />
+              <Controller
+                name='bank'
+                control={control}
+                render={({ field }) => (
+                  <Bank
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.bank ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.bank?.message && <FormError message={errors.bank.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -712,7 +840,19 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Rate Type</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <RateType />
+                <Controller
+                  name='rate_type'
+                  control={control}
+                  render={({ field }) => (
+                    <RateType
+                      value={field.value}
+                      onChange={field.onChange}
+                      name={field.name}
+                      className={errors.rate_type ? 'p-invalid' : ''}
+                    />
+                  )}
+                />
+                {errors.rate_type?.message && <FormError message={errors.rate_type.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Base Monthly Pay</label>
                   <InputText

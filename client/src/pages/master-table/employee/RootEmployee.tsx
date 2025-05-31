@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Button } from 'primereact/button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
 import { useEffect } from 'react';
@@ -18,6 +18,7 @@ const Root = () => {
   const [deleteEmployee] = useDeleteEmployeeMutation();
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
     if (selectedEmployee) {
@@ -128,41 +129,43 @@ const Root = () => {
               icon='pi pi-plus'
               label='Add'
               severity='info'
-              className='py-1 px-3'
+              className='py-1 px-2 lg:px-3'
               onClick={handleEmployeeAdd}
             />
             <Button
               icon='pi pi-pencil'
               label='Edit'
               severity='success'
-              className='py-1 px-3'
+              className='py-1 px-2 lg:px-3'
               onClick={handleEmployeeUpdate}
             />
             <Button
               icon='pi pi-search'
               label='View'
               severity='warning'
-              className='py-1 px-3'
+              className='py-1 px-2 lg:px-3'
               onClick={handleEmployeeDetails}
             />
             <Button
               icon='pi pi-trash'
               label='Delete'
               severity='danger'
-              className='py-1 px-3'
+              className='py-1 px-2 lg:px-3'
               onClick={handleEmployeeDelete}
             />
           </div>
-          <div className='flex gap-1'>
-            <Button
-              icon='pi pi-refresh'
-              className='py-1 px-3 bg-[#679e37]'
-            />
-            <Button
-              icon='pi pi-download'
-              className='py-1 px-3 bg-[#679e37]'
-            />
-          </div>
+          {location.pathname === '/master-table/employees' && (
+            <div className='flex gap-1'>
+              <Button
+                icon='pi pi-refresh'
+                className='py-1 px-3 bg-[#679e37]'
+              />
+              <Button
+                icon='pi pi-download'
+                className='py-1 px-3 bg-[#679e37]'
+              />
+            </div>
+          )}
         </div>
         <div className='flex mb-2 !border-b-2 !border-b-[#e7e7e7]'>
           <p className='block px-3 py-2'>LIST</p>
