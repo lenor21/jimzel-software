@@ -7,7 +7,7 @@ interface City {
   code: string;
 }
 
-const Employment = () => {
+const Bank = () => {
   const [selected, setSelected] = useState<City | null>(null);
 
   const options: City[] = [
@@ -22,7 +22,7 @@ const Employment = () => {
     <Dropdown
       options={options}
       optionLabel='name'
-      placeholder='Select an Employment'
+      placeholder='Select a Bank'
       className='w-full col-span-4'
       checkmark={true}
       highlightOnSelect={false}
@@ -32,4 +32,4 @@ const Employment = () => {
   );
 };
 
-export default Employment;
+export default Bank;

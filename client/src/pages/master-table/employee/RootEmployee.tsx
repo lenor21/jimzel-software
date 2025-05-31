@@ -36,7 +36,7 @@ const Root = () => {
         color: '#0a0a0a',
         position: 'center',
         icon: 'error',
-        title: `Please select an employee to view`,
+        title: `Please select an employee to edit`,
         showConfirmButton: false,
         timer: 1500,
       });
