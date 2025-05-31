@@ -41,6 +41,20 @@ const Add = () => {
       city: '',
       province: '',
       zip: '',
+      location: '',
+      department: '',
+      project: '',
+      team: '',
+      position: '',
+      employment: '',
+      user_profile: '',
+      manager: '',
+      vendor: '',
+      ctc: '',
+      ctc_place: '',
+      ctc_date: '',
+      ctc_amount_paid: 0,
+      notes: '',
     },
   });
 
@@ -187,26 +201,58 @@ const Add = () => {
                   )}
                 />
                 {errors.city?.message && <FormError message={errors.city.message} />}
+
                 <div className='w-full flex gap-2 items-center col-span-4'>
                   <label>Provice</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='province'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='text'
+                        id='province'
+                        {...field}
+                        className={`p-inputtext-sm w-full col-span-2 ${errors.province && 'p-invalid'}`}
+                      />
+                    )}
                   />
+                  {errors.province?.message && <FormError message={errors.province.message} />}
                 </div>
+
                 <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Zip</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='zip'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='text'
+                        id='zip'
+                        {...field}
+                        className={`p-inputtext-sm w-full col-span-2 ${errors.zip && 'p-invalid'}`}
+                      />
+                    )}
                   />
+                  {errors.zip?.message && <FormError message={errors.zip.message} />}
                 </div>
               </div>
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Location</label>
-              <Location />
+              <Controller
+                name='location'
+                control={control}
+                render={({ field }) => (
+                  <Location
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.location ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.location?.message && <FormError message={errors.location.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -215,22 +261,70 @@ const Add = () => {
                 <br className='lg:hidden' />
                 ment
               </label>
-              <Department />
+              <Controller
+                name='department'
+                control={control}
+                render={({ field }) => (
+                  <Department
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.department ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.department?.message && <FormError message={errors.department.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Project</label>
-              <Project />
+              <Controller
+                name='project'
+                control={control}
+                render={({ field }) => (
+                  <Project
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.department ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.department?.message && <FormError message={errors.department.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Team</label>
-              <Team />
+              <Controller
+                name='team'
+                control={control}
+                render={({ field }) => (
+                  <Team
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.team ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.team?.message && <FormError message={errors.team.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Position</label>
-              <Position />
+              <Controller
+                name='position'
+                control={control}
+                render={({ field }) => (
+                  <Position
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.position ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.position?.message && <FormError message={errors.position.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -239,7 +333,19 @@ const Add = () => {
                 <br className='lg:hidden' />
                 ment
               </label>
-              <Employment />
+              <Controller
+                name='employment'
+                control={control}
+                render={({ field }) => (
+                  <Employment
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.employment ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.employment?.message && <FormError message={errors.employment.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -247,7 +353,19 @@ const Add = () => {
                 User <br className='lg:hidden' />
                 Profile
               </label>
-              <User />
+              <Controller
+                name='user_profile'
+                control={control}
+                render={({ field }) => (
+                  <User
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.user_profile ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.user_profile?.message && <FormError message={errors.user_profile.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -256,45 +374,105 @@ const Add = () => {
                 <br className='lg:hidden' />
                 Supv
               </label>
-              <Manager />
+              <Controller
+                name='manager'
+                control={control}
+                render={({ field }) => (
+                  <Manager
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.manager ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.manager?.message && <FormError message={errors.manager.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Vendor</label>
-              <Vendor />
+              <Controller
+                name='vendor'
+                control={control}
+                render={({ field }) => (
+                  <Vendor
+                    value={field.value}
+                    onChange={field.onChange}
+                    name={field.name}
+                    className={errors.vendor ? 'p-invalid' : ''}
+                  />
+                )}
+              />
+              {errors.vendor?.message && <FormError message={errors.vendor.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>
                 Email <RequiredText />
               </label>
-              <InputText
-                type='text'
-                className='p-inputtext-sm w-full col-span-4'
+              <Controller
+                name='email'
+                control={control}
+                render={({ field }) => (
+                  <InputText
+                    type='email'
+                    id='email'
+                    {...field}
+                    className={`p-inputtext-sm w-full col-span-4 ${errors.email && 'p-invalid'}`}
+                  />
+                )}
               />
+              {errors.email?.message && <FormError message={errors.email.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Phone No.</label>
-              <InputText
-                type='text'
-                className='p-inputtext-sm w-full col-span-4'
+              <Controller
+                name='phone'
+                control={control}
+                render={({ field }) => (
+                  <InputText
+                    type='text'
+                    id='phone'
+                    {...field}
+                    className={`p-inputtext-sm w-full col-span-4 ${errors.phone && 'p-invalid'}`}
+                  />
+                )}
               />
+              {errors.phone?.message && <FormError message={errors.phone.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>CTC/Valid ID</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='ctc'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='text'
+                      id='ctc'
+                      {...field}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.ctc && 'p-invalid'}`}
+                    />
+                  )}
                 />
+                {errors.ctc?.message && <FormError message={errors.ctc.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Place Issued</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='ctc_place'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='text'
+                        id='ctc_place'
+                        {...field}
+                        className={`p-inputtext-sm w-full ${errors.ctc_place && 'p-invalid'}`}
+                      />
+                    )}
                   />
+                  {errors.ctc_place?.message && <FormError message={errors.ctc_place.message} />}
                 </div>
               </div>
             </div>
@@ -302,28 +480,60 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>CTC Date</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='date'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='ctc_date'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='date'
+                      id='ctc_date'
+                      {...field}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.ctc_date && 'p-invalid'}`}
+                    />
+                  )}
                 />
+                {errors.ctc_date?.message && <FormError message={errors.ctc_date.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Amount Paid</label>
-                  <InputText
-                    type='number'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='ctc_amount_paid'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='number'
+                        id='ctc_amount_paid'
+                        value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                        className={`p-inputtext-sm w-full ${errors.ctc_amount_paid && 'p-invalid'}`}
+                        onChange={(e) => {
+                          const parsedValue = parseFloat(e.target.value);
+                          field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                        }}
+                        name={field.name}
+                      />
+                    )}
                   />
+                  {errors.ctc_amount_paid?.message && <FormError message={errors.ctc_amount_paid.message} />}
                 </div>
               </div>
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Notes</label>
-              <InputTextarea
-                value='hello'
-                rows={3}
-                cols={10}
-                className='p-inputtext-sm w-full col-span-4'
+              <Controller
+                name='notes'
+                control={control}
+                render={({ field }) => (
+                  <InputTextarea
+                    autoResize
+                    rows={3}
+                    cols={10}
+                    className='p-inputtext-sm w-full col-span-4'
+                    id='notes'
+                    {...field}
+                  />
+                )}
               />
+              {errors.notes?.message && <FormError message={errors.notes.message} />}
             </div>
           </div>
 

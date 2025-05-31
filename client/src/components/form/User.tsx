@@ -1,33 +1,39 @@
 import { Dropdown } from 'primereact/dropdown';
 import type { DropdownChangeEvent } from 'primereact/dropdown';
-import { useState } from 'react';
 
-interface City {
+interface UserOption {
   name: string;
   code: string;
 }
 
-const User = () => {
-  const [selected, setSelected] = useState<City | null>(null);
+interface UserProps {
+  value: string | null;
+  onChange: (value: string | null) => void;
+  name: string;
+  className?: string;
+}
 
-  const options: City[] = [
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' },
+const User = ({ value, onChange, name, className }: UserProps) => {
+  const options: UserOption[] = [
+    { name: 'Admin', code: 'admin' },
+    { name: 'User', code: 'user' },
+    { name: 'Manager', code: 'manager' },
+    { name: 'Supervisor', code: 'supervisor' },
   ];
+
+  const selectedOption = options.find((option) => option.code === value) || null;
 
   return (
     <Dropdown
       options={options}
       optionLabel='name'
-      placeholder='Select a User Profile'
-      className='w-full col-span-4'
+      placeholder='Select a User'
+      className={`w-full col-span-4 ${className || ''}`}
       checkmark={true}
       highlightOnSelect={false}
-      onChange={(e: DropdownChangeEvent) => setSelected(e.value)}
-      value={selected}
+      onChange={(e: DropdownChangeEvent) => onChange(e.value ? (e.value as UserOption).code : null)}
+      value={selectedOption}
+      name={name}
     />
   );
 };
