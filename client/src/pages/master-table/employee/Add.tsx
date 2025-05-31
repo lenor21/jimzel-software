@@ -32,10 +32,15 @@ const Add = () => {
   } = useForm<EmployeeFormValues>({
     resolver: zodResolver(employeeFormSchema),
     defaultValues: {
-      empID: '',
-      firstname: '',
-      middlename: '',
-      lastname: '',
+      employee_id: '',
+      first_name: '',
+      middle_name: '',
+      last_name: '',
+      suffix: '',
+      address: '',
+      city: '',
+      province: '',
+      zip: '',
     },
   });
 
@@ -56,18 +61,18 @@ const Add = () => {
               EmpID <RequiredText />
             </label>
             <Controller
-              name='empID'
+              name='employee_id'
               control={control}
               render={({ field }) => (
                 <InputText
                   type='text'
-                  id='empID'
+                  id='employee_id'
                   {...field}
-                  className={`p-inputtext-sm ${errors.empID && 'p-invalid'}`}
+                  className={`p-inputtext-sm ${errors.employee_id && 'p-invalid'}`}
                 />
               )}
             />
-            {errors.empID?.message && <FormError message={errors.empID.message} />}
+            {errors.employee_id?.message && <FormError message={errors.employee_id.message} />}
           </div>
 
           <div className='flex flex-col col-span-2'>
@@ -76,26 +81,35 @@ const Add = () => {
               <RequiredText />
             </label>
             <Controller
-              name='firstname'
+              name='first_name'
               control={control}
               render={({ field }) => (
                 <InputText
                   type='text'
-                  id='firstname'
+                  id='first_name'
                   {...field}
-                  className={`p-inputtext-sm ${errors.firstname && 'p-invalid'}`}
+                  className={`p-inputtext-sm ${errors.first_name && 'p-invalid'}`}
                 />
               )}
             />
-            {errors.firstname?.message && <FormError message={errors.firstname.message} />}
+            {errors.first_name?.message && <FormError message={errors.first_name.message} />}
           </div>
 
           <div className='flex flex-col col-span-2'>
             <label>Middle Name</label>
-            <InputText
-              type='text'
-              className='p-inputtext-sm'
+            <Controller
+              name='middle_name'
+              control={control}
+              render={({ field }) => (
+                <InputText
+                  type='text'
+                  id='middle_name'
+                  {...field}
+                  className={`p-inputtext-sm`}
+                />
+              )}
             />
+            {errors.middle_name?.message && <FormError message={errors.middle_name.message} />}
           </div>
 
           <div className='flex flex-col col-span-2'>
@@ -104,25 +118,35 @@ const Add = () => {
               <RequiredText />
             </label>
             <Controller
-              name='lastname'
+              name='last_name'
               control={control}
               render={({ field }) => (
                 <InputText
                   type='text'
-                  id='lastname'
+                  id='last_name'
                   {...field}
-                  className={`p-inputtext-sm ${errors.lastname && 'p-invalid'}`}
+                  className={`p-inputtext-sm ${errors.last_name && 'p-invalid'}`}
                 />
               )}
             />
-            {errors.lastname?.message && <FormError message={errors.lastname.message} />}
+            {errors.last_name?.message && <FormError message={errors.last_name.message} />}
           </div>
+
           <div className='flex flex-col col-span-1'>
             <label>Suffix</label>
-            <InputText
-              type='text'
-              className='p-inputtext-sm'
+            <Controller
+              name='suffix'
+              control={control}
+              render={({ field }) => (
+                <InputText
+                  type='text'
+                  id='suffix'
+                  {...field}
+                  className={`p-inputtext-sm`}
+                />
+              )}
             />
+            {errors.suffix?.message && <FormError message={errors.suffix.message} />}
           </div>
         </div>
 
@@ -130,22 +154,39 @@ const Add = () => {
           <div className='col-span-1 flex flex-col gap-3'>
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Address</label>
-              <InputTextarea
-                autoResize
-                value=''
-                rows={2}
-                cols={10}
-                className='w-full col-span-4'
+              <Controller
+                name='address'
+                control={control}
+                render={({ field }) => (
+                  <InputTextarea
+                    autoResize
+                    rows={2}
+                    cols={10}
+                    className='w-full col-span-4'
+                    id='address'
+                    {...field}
+                  />
+                )}
               />
+              {errors.address?.message && <FormError message={errors.address.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>City</label>
               <div className='!grid grid-cols-8 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='city'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='text'
+                      id='city'
+                      {...field}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.city && 'p-invalid'}`}
+                    />
+                  )}
                 />
+                {errors.city?.message && <FormError message={errors.city.message} />}
                 <div className='w-full flex gap-2 items-center col-span-4'>
                   <label>Provice</label>
                   <InputText
