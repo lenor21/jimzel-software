@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import { Checkbox } from 'primereact/checkbox';
+// import { useState } from 'react';
+// import { Checkbox } from 'primereact/checkbox';
 
-const Active = () => {
-  const [checked, setChecked] = useState<boolean>(false);
+// const Active = () => {
+//   const [checked, setChecked] = useState<boolean>(false);
 
-  return (
-    <Checkbox
-      onChange={(e) => setChecked(e.checked)}
-      checked={checked}
-    ></Checkbox>
-  );
-};
+//   return (
+//     <Checkbox
+//       onChange={(e) => setChecked(e.checked)}
+//       checked={checked}
+//     ></Checkbox>
+//   );
+// };
 
-export default Active;
+// export default Active;

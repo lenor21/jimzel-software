@@ -12,16 +12,14 @@ import Manager from '../../../components/form/Manager';
 import User from '../../../components/form/User';
 import PayFrequency from '../../../components/form/PayFrequency';
 import Sex from '../../../components/form/Sex';
-import Active from '../../../components/form/Active';
 import RateType from '../../../components/form/RateType';
 import Bank from '../../../components/form/Bank';
-import Tax from '../../../components/form/witheld/Tax';
-import MinimumEarner from '../../../components/form/MinimumEarner';
 import { Button } from 'primereact/button';
 import { useForm, Controller, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { employeeFormSchema, type EmployeeFormValues } from '../../../schemas/employeeSchema';
 import FormError from '../../../components/form/FormError';
+import { Checkbox } from 'primereact/checkbox';
 
 const Add = () => {
   const {
@@ -56,37 +54,38 @@ const Add = () => {
       notes: '',
       pay_freq: '',
       sex: '',
-      // active: false,
+      active: false,
       birthday: '',
       date_hired: '',
+      kasambahay: false,
       regularized: undefined,
       separated: undefined,
       contract_start: undefined,
       contract_end: undefined,
-      // minimum_earner: false,
-      // minimum_daily: 0,
-      // minimum_monthly: 0,
-      // tax_id: '',
-      // tax_witheld: false,
-      // sss_gsis: '',
-      // sss_gsis_witheld: false,
-      // phic_id: '',
-      // phic_witheld: false,
-      // hdmf_id: '',
-      // hdmf_witheld: false,
-      // hdmf_account: '',
+      minimum_earner: false,
+      minimum_daily: 0,
+      minimum_monthly: 0,
+      tax_id: '',
+      tax_witheld: false,
+      sss_gsis: '',
+      sss_gsis_witheld: false,
+      phic_id: '',
+      phic_witheld: false,
+      hdmf_id: '',
+      hdmf_witheld: false,
+      hdmf_account: '',
       bank: '',
-      // bank_account: '',
+      bank_account: '',
       rate_type: '',
-      // base_monthly_pay: 0,
-      // days_per_month: 0,
-      // hours_per_day: 0,
-      // daily_rate: 0,
-      // hourly_rate: 0,
-      // col_allowance: 0,
-      // represent_allowance: 0,
-      // housing_allowance: 0,
-      // transportation_allowance: 0,
+      base_monthly_pay: 0,
+      days_per_month: 0,
+      hours_per_day: 0,
+      daily_rate: 0,
+      hourly_rate: 0,
+      col_allowance: 0,
+      represent_allowance: 0,
+      housing_allowance: 0,
+      transportation_allowance: 0,
     },
   });
 
@@ -446,15 +445,17 @@ const Add = () => {
                 name='email'
                 control={control}
                 render={({ field }) => (
-                  <InputText
-                    type='email'
-                    id='email'
-                    {...field}
-                    className={`p-inputtext-sm w-full col-span-4 ${errors.email && 'p-invalid'}`}
-                  />
+                  <div className='p-inputtext-sm w-full col-span-4'>
+                    <InputText
+                      type='email'
+                      id='email'
+                      {...field}
+                      className={`w-full ${errors.email && 'p-invalid'}`}
+                    />
+                    {errors.email?.message && <FormError message={errors.email.message} />}
+                  </div>
                 )}
               />
-              {errors.email?.message && <FormError message={errors.email.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -579,15 +580,18 @@ const Add = () => {
                   name='pay_freq'
                   control={control}
                   render={({ field }) => (
-                    <PayFrequency
-                      value={field.value}
-                      onChange={field.onChange}
-                      name={field.name}
-                      className={errors.pay_freq ? 'p-invalid' : ''}
-                    />
+                    <div className='p-inputtext-sm w-full lg:col-span-2 '>
+                      <PayFrequency
+                        value={field.value}
+                        onChange={field.onChange}
+                        name={field.name}
+                        className={errors.pay_freq ? 'p-invalid' : ''}
+                      />
+                      {errors.pay_freq?.message && <FormError message={errors.pay_freq.message} />}
+                    </div>
                   )}
                 />
-                {errors.pay_freq?.message && <FormError message={errors.pay_freq.message} />}
+
                 <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Sex</label>
                   <Controller
@@ -606,7 +610,21 @@ const Add = () => {
                 </div>
                 <div className='w-full flex gap-2 items-center lg:col-span-1 justify-end lg:justify-center'>
                   <label>Active</label>
-                  <Active />
+                  {/* <Active /> */}
+                  <Controller
+                    name='active'
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        inputId={field.name}
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.checked)}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        className={errors.active ? 'p-invalid' : ''}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
@@ -621,15 +639,18 @@ const Add = () => {
                   name='birthday'
                   control={control}
                   render={({ field }) => (
-                    <InputText
-                      type='date'
-                      id='birthday'
-                      {...field}
-                      className={`p-inputtext-sm w-full col-span-2 ${errors.birthday && 'p-invalid'}`}
-                    />
+                    <div className='p-inputtext-sm w-full col-span-3'>
+                      <InputText
+                        type='date'
+                        id='birthday'
+                        {...field}
+                        className={`${errors.birthday && 'p-invalid'}`}
+                      />
+                      {errors.birthday?.message && <FormError message={errors.birthday.message} />}
+                    </div>
                   )}
                 />
-                {errors.birthday?.message && <FormError message={errors.birthday.message} />}
+
                 <div className='w-full flex gap-2 items-center lg:col-span-3'>
                   <label>
                     Date Hired
@@ -639,23 +660,38 @@ const Add = () => {
                     name='date_hired'
                     control={control}
                     render={({ field }) => (
-                      <InputText
-                        type='date'
-                        id='date_hired'
-                        {...field}
-                        className={`p-inputtext-sm w-full col-span-1 ${errors.date_hired && 'p-invalid'}`}
-                      />
+                      <div className='p-inputtext-sm w-full'>
+                        <InputText
+                          type='date'
+                          id='date_hired'
+                          {...field}
+                          className={`${errors.date_hired && 'p-invalid'}`}
+                        />
+                        {errors.date_hired?.message && <FormError message={errors.date_hired.message} />}
+                      </div>
                     )}
                   />
-                  {errors.date_hired?.message && <FormError message={errors.date_hired.message} />}
                 </div>
-                <div className='w-full flex gap-4 items-center lg:col-span-3 justify-end'>
+                <div className='w-full flex gap-4 items-center lg:col-span-2 justify-end'>
                   <label>
                     Kasam
                     <br className='hidden lg:block' />
                     bahay
                   </label>
-                  <Active />
+                  <Controller
+                    name='kasambahay'
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        inputId={field.name}
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.checked)}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        className={errors.kasambahay ? 'p-invalid' : ''}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
@@ -736,19 +772,113 @@ const Add = () => {
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Minimum Earner</label>
-              <MinimumEarner />
+              <div className='flex col-span-4 gap-4 items-center'>
+                <Controller
+                  name='minimum_earner'
+                  control={control}
+                  render={({ field }) => (
+                    <div className='flex col-span-4 gap-4 items-center'>
+                      <Checkbox
+                        inputId={field.name}
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.checked)}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        className={errors.minimum_earner ? 'p-invalid' : ''}
+                      />
+                      {field.value && (
+                        <div className='flex flex-col gap-2'>
+                          <div className='!grid grid-cols-5 items-center'>
+                            <label className='col-span-2'>Satutory Minimum Daily Rate</label>
+                            <Controller
+                              name='minimum_daily'
+                              control={control}
+                              render={({ field }) => (
+                                <div className='p-inputtext-sm w-full col-span-3 '>
+                                  <InputText
+                                    type='number'
+                                    id='minimum_daily'
+                                    value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                                    className={`w-full ${errors.minimum_daily && 'p-invalid'}`}
+                                    onChange={(e) => {
+                                      const parsedValue = parseFloat(e.target.value);
+                                      field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                                    }}
+                                    name={field.name}
+                                  />
+                                  {errors.minimum_daily?.message && <FormError message={errors.minimum_daily.message} />}
+                                </div>
+                              )}
+                            />
+                          </div>
+                          <div className='!grid grid-cols-5 items-center'>
+                            <label className='col-span-2'>Satutory Minimum Monthly Rate</label>
+                            <Controller
+                              name='minimum_monthly'
+                              control={control}
+                              render={({ field }) => (
+                                <div className='p-inputtext-sm w-full col-span-3 '>
+                                  <InputText
+                                    type='number'
+                                    id='minimum_monthly'
+                                    value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                                    className={`w-full ${errors.minimum_monthly && 'p-invalid'}`}
+                                    onChange={(e) => {
+                                      const parsedValue = parseFloat(e.target.value);
+                                      field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                                    }}
+                                    name={field.name}
+                                  />
+                                  {errors.minimum_monthly?.message && <FormError message={errors.minimum_monthly.message} />}
+                                </div>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                />
+              </div>
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>TAX ID</label>
-              <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-3'
+              <label className='col-span-1'>
+                TAX ID <RequiredText />
+              </label>
+              <div className='!grid grid-cols-7 col-span-4 gap-3'>
+                <Controller
+                  name='tax_id'
+                  control={control}
+                  render={({ field }) => (
+                    <div className='p-inputtext-sm w-full col-span-5'>
+                      <InputText
+                        type='text'
+                        id='tax_id'
+                        {...field}
+                        className={`w-full ${errors.tax_id && 'p-invalid'}`}
+                      />
+                      {errors.tax_id?.message && <FormError message={errors.tax_id.message} />}
+                    </div>
+                  )}
                 />
-                <div className='w-full flex gap-2 items-center col-span-1'>
+
+                <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Witheld</label>
-                  <Tax />
+                  <Controller
+                    name='tax_witheld'
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        inputId={field.name}
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.checked)}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        className={errors.tax_witheld ? 'p-invalid' : ''}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
@@ -756,16 +886,41 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>
                 SSS/GSIS No.
-                <RequiredText />{' '}
+                <RequiredText />
               </label>
-              <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-3'
+              <div className='!grid grid-cols-7 col-span-4 gap-3'>
+                <Controller
+                  name='sss_gsis'
+                  control={control}
+                  render={({ field }) => (
+                    <div className='p-inputtext-sm w-full col-span-5 '>
+                      <InputText
+                        type='text'
+                        id='sss_gsis'
+                        {...field}
+                        className={`w-full ${errors.sss_gsis && 'p-invalid'}`}
+                      />
+                      {errors.sss_gsis?.message && <FormError message={errors.sss_gsis.message} />}
+                    </div>
+                  )}
                 />
-                <div className='w-full flex gap-2 items-center col-span-1'>
+
+                <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Witheld</label>
-                  <Tax />
+                  <Controller
+                    name='sss_gsis_witheld'
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        inputId={field.name}
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.checked)}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        className={errors.sss_gsis_witheld ? 'p-invalid' : ''}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
@@ -773,16 +928,41 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>
                 PHIC ID
-                <RequiredText />{' '}
+                <RequiredText />
               </label>
-              <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-3'
+              <div className='!grid grid-cols-7 col-span-4 gap-3'>
+                <Controller
+                  name='phic_id'
+                  control={control}
+                  render={({ field }) => (
+                    <div className='p-inputtext-sm w-full col-span-5'>
+                      <InputText
+                        type='text'
+                        id='phic_id'
+                        {...field}
+                        className={`w-full ${errors.phic_id && 'p-invalid'}`}
+                      />
+                      {errors.phic_id?.message && <FormError message={errors.phic_id.message} />}
+                    </div>
+                  )}
                 />
-                <div className='w-full flex gap-2 items-center col-span-1'>
+
+                <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Witheld</label>
-                  <Tax />
+                  <Controller
+                    name='phic_witheld'
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        inputId={field.name}
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.checked)}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        className={errors.phic_witheld ? 'p-invalid' : ''}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
@@ -790,26 +970,60 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>
                 HDMF ID
-                <RequiredText />{' '}
+                <RequiredText />
               </label>
-              <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-3'
+              <div className='!grid grid-cols-7 col-span-4 gap-3'>
+                <Controller
+                  name='hdmf_id'
+                  control={control}
+                  render={({ field }) => (
+                    <div className='p-inputtext-sm w-full col-span-5'>
+                      <InputText
+                        type='text'
+                        id='hdmf_id'
+                        {...field}
+                        className={`w-full ${errors.hdmf_id && 'p-invalid'}`}
+                      />
+                      {errors.hdmf_id?.message && <FormError message={errors.hdmf_id.message} />}
+                    </div>
+                  )}
                 />
-                <div className='w-full flex gap-2 items-center col-span-1'>
+
+                <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Witheld</label>
-                  <Tax />
+                  <Controller
+                    name='hdmf_witheld'
+                    control={control}
+                    render={({ field }) => (
+                      <Checkbox
+                        inputId={field.name}
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.checked)}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        className={errors.hdmf_witheld ? 'p-invalid' : ''}
+                      />
+                    )}
+                  />
                 </div>
               </div>
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>HDMF Account</label>
-              <InputText
-                type='text'
-                className='p-inputtext-sm w-full col-span-3'
+              <Controller
+                name='hdmf_account'
+                control={control}
+                render={({ field }) => (
+                  <InputText
+                    type='text'
+                    id='hdmf_account'
+                    {...field}
+                    className={`p-inputtext-sm w-full col-span-3 ${errors.hdmf_account && 'p-invalid'}`}
+                  />
+                )}
               />
+              {errors.hdmf_account?.message && <FormError message={errors.hdmf_account.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -831,10 +1045,19 @@ const Add = () => {
 
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Bank Account</label>
-              <InputText
-                type='text'
-                className='p-inputtext-sm w-full col-span-4'
+              <Controller
+                name='bank_account'
+                control={control}
+                render={({ field }) => (
+                  <InputText
+                    type='text'
+                    id='bank_account'
+                    {...field}
+                    className={`p-inputtext-sm w-full col-span-4 ${errors.bank_account && 'p-invalid'}`}
+                  />
+                )}
               />
+              {errors.bank_account?.message && <FormError message={errors.bank_account.message} />}
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
@@ -855,10 +1078,24 @@ const Add = () => {
                 {errors.rate_type?.message && <FormError message={errors.rate_type.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Base Monthly Pay</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='base_monthly_pay'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='number'
+                        id='base_monthly_pay'
+                        value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                        className={`p-inputtext-sm w-full ${errors.base_monthly_pay && 'p-invalid'}`}
+                        onChange={(e) => {
+                          const parsedValue = parseFloat(e.target.value);
+                          field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                        }}
+                        name={field.name}
+                      />
+                    )}
                   />
+                  {errors.base_monthly_pay?.message && <FormError message={errors.base_monthly_pay.message} />}
                 </div>
               </div>
             </div>
@@ -866,16 +1103,44 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Days per Month</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='days_per_month'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='number'
+                      id='days_per_month'
+                      value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.days_per_month && 'p-invalid'}`}
+                      onChange={(e) => {
+                        const parsedValue = parseFloat(e.target.value);
+                        field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                      }}
+                      name={field.name}
+                    />
+                  )}
                 />
+                {errors.days_per_month?.message && <FormError message={errors.days_per_month.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Hours per Day</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='hours_per_day'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='number'
+                        id='hours_per_day'
+                        value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                        className={`p-inputtext-sm w-full ${errors.hours_per_day && 'p-invalid'}`}
+                        onChange={(e) => {
+                          const parsedValue = parseFloat(e.target.value);
+                          field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                        }}
+                        name={field.name}
+                      />
+                    )}
                   />
+                  {errors.hours_per_day?.message && <FormError message={errors.hours_per_day.message} />}
                 </div>
               </div>
             </div>
@@ -883,16 +1148,44 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Daily Rate</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='daily_rate'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='number'
+                      id='daily_rate'
+                      value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.daily_rate && 'p-invalid'}`}
+                      onChange={(e) => {
+                        const parsedValue = parseFloat(e.target.value);
+                        field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                      }}
+                      name={field.name}
+                    />
+                  )}
                 />
+                {errors.daily_rate?.message && <FormError message={errors.daily_rate.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Hourly Rate</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='hourly_rate'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='number'
+                        id='hourly_rate'
+                        value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                        className={`p-inputtext-sm w-full ${errors.hourly_rate && 'p-invalid'}`}
+                        onChange={(e) => {
+                          const parsedValue = parseFloat(e.target.value);
+                          field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                        }}
+                        name={field.name}
+                      />
+                    )}
                   />
+                  {errors.hourly_rate?.message && <FormError message={errors.hourly_rate.message} />}
                 </div>
               </div>
             </div>
@@ -900,16 +1193,44 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Const of Living Allowance</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='col_allowance'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='number'
+                      id='col_allowance'
+                      value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.col_allowance && 'p-invalid'}`}
+                      onChange={(e) => {
+                        const parsedValue = parseFloat(e.target.value);
+                        field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                      }}
+                      name={field.name}
+                    />
+                  )}
                 />
+                {errors.col_allowance?.message && <FormError message={errors.col_allowance.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Representation Allowance</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='represent_allowance'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='number'
+                        id='represent_allowance'
+                        value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                        className={`p-inputtext-sm w-full ${errors.represent_allowance && 'p-invalid'}`}
+                        onChange={(e) => {
+                          const parsedValue = parseFloat(e.target.value);
+                          field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                        }}
+                        name={field.name}
+                      />
+                    )}
                   />
+                  {errors.represent_allowance?.message && <FormError message={errors.represent_allowance.message} />}
                 </div>
               </div>
             </div>
@@ -917,16 +1238,44 @@ const Add = () => {
             <div className='!grid grid-cols-5 items-center'>
               <label className='col-span-1'>Housing Allowance</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
-                <InputText
-                  type='text'
-                  className='p-inputtext-sm w-full col-span-2'
+                <Controller
+                  name='housing_allowance'
+                  control={control}
+                  render={({ field }) => (
+                    <InputText
+                      type='number'
+                      id='housing_allowance'
+                      value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                      className={`p-inputtext-sm w-full col-span-2 ${errors.housing_allowance && 'p-invalid'}`}
+                      onChange={(e) => {
+                        const parsedValue = parseFloat(e.target.value);
+                        field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                      }}
+                      name={field.name}
+                    />
+                  )}
                 />
+                {errors.housing_allowance?.message && <FormError message={errors.housing_allowance.message} />}
                 <div className='w-full flex gap-2 items-center col-span-3'>
                   <label>Transportation Allowance</label>
-                  <InputText
-                    type='text'
-                    className='p-inputtext-sm w-full'
+                  <Controller
+                    name='transportation_allowance'
+                    control={control}
+                    render={({ field }) => (
+                      <InputText
+                        type='number'
+                        id='transportation_allowance'
+                        value={field.value === undefined || field.value === null ? '' : String(field.value)}
+                        className={`p-inputtext-sm w-full ${errors.transportation_allowance && 'p-invalid'}`}
+                        onChange={(e) => {
+                          const parsedValue = parseFloat(e.target.value);
+                          field.onChange(isNaN(parsedValue) ? undefined : parsedValue);
+                        }}
+                        name={field.name}
+                      />
+                    )}
                   />
+                  {errors.transportation_allowance?.message && <FormError message={errors.transportation_allowance.message} />}
                 </div>
               </div>
             </div>
