@@ -23,7 +23,7 @@ const PayFrequency = () => {
       options={options}
       optionLabel='name'
       placeholder='Pay Freq'
-      className='p-inputtext-sm w-full col-span-1'
+      className='p-inputtext-sm w-full lg:col-span-2'
       checkmark={true}
       highlightOnSelect={false}
       onChange={(e: DropdownChangeEvent) => setSelected(e.value)}

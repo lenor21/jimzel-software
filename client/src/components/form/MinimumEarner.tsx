@@ -12,7 +12,7 @@ const MinimumEarner = () => {
         checked={checked}
       ></Checkbox>
       {checked && (
-        <>
+        <div className='flex flex-col gap-2'>
           <div className='!grid grid-cols-5 items-center'>
             <label className='col-span-2'>Satutory Minimum Daily Rate</label>
             <InputText
@@ -27,7 +27,7 @@ const MinimumEarner = () => {
               className='p-inputtext-sm w-full col-span-3'
             />
           </div>
-        </>
+        </div>
       )}
     </div>
   );

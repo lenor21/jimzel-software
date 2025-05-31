@@ -17,6 +17,7 @@ import RateType from '../../../components/form/RateType';
 import Bank from '../../../components/form/Bank';
 import Tax from '../../../components/form/witheld/Tax';
 import MinimumEarner from '../../../components/form/MinimumEarner';
+import { Button } from 'primereact/button';
 
 const Add = () => {
   return (
@@ -115,7 +116,11 @@ const Add = () => {
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>Department</label>
+              <label className='col-span-1'>
+                Depart
+                <br className='lg:hidden' />
+                ment
+              </label>
               <Department />
             </div>
 
@@ -135,17 +140,28 @@ const Add = () => {
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>Employment</label>
+              <label className='col-span-1'>
+                Employ
+                <br className='lg:hidden' />
+                ment
+              </label>
               <Employment />
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>User Profile</label>
+              <label className='col-span-1'>
+                User <br className='lg:hidden' />
+                Profile
+              </label>
               <User />
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>Manager/Supv</label>
+              <label className='col-span-1'>
+                Manager/
+                <br className='lg:hidden' />
+                Supv
+              </label>
               <Manager />
             </div>
 
@@ -218,41 +234,41 @@ const Add = () => {
           </div>
 
           <div className='col-span-1 flex flex-col gap-3'>
-            <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>
+            <div className='!grid grid-cols-5 lg:items-center'>
+              <label className='col-span-1 mt-2 lg:mt-0'>
                 Pay Freq <RequiredText />
               </label>
-              <div className='!grid grid-cols-3 col-span-4 gap-3'>
+              <div className='flex flex-wrap lg:!grid lg:grid-cols-5 col-span-4 gap-3'>
                 <PayFrequency />
-                <div className='w-full flex gap-2 items-center col-span-1'>
+                <div className='w-full flex gap-2 items-center col-span-2'>
                   <label>Sex</label>
                   <Sex />
                 </div>
-                <div className='w-full flex gap-4 items-center col-span-1 justify-center'>
+                <div className='w-full flex gap-2 items-center lg:col-span-1 justify-end lg:justify-center'>
                   <label>Active</label>
                   <Active />
                 </div>
               </div>
             </div>
 
-            <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>Birthday</label>
-              <div className='!grid grid-cols-3 col-span-4 gap-3'>
+            <div className='!grid grid-cols-5 lg:items-center'>
+              <label className='col-span-1 mt-2 lg:mt-0'>Birthday</label>
+              <div className='flex flex-wrap lg:!grid lg:grid-cols-8 col-span-4 gap-3'>
                 <InputText
                   type='date'
-                  className='p-inputtext-sm w-full col-span-1'
+                  className='p-inputtext-sm w-full col-span-2'
                 />
-                <div className='w-full flex gap-2 items-center col-span-1'>
+                <div className='w-full flex gap-2 items-center lg:col-span-3'>
                   <label>Date Hired</label>
                   <InputText
                     type='date'
                     className='p-inputtext-sm w-full col-span-1'
                   />
                 </div>
-                <div className='w-full flex gap-4 items-center col-span-1 justify-end'>
+                <div className='w-full flex gap-4 items-center lg:col-span-3 justify-end'>
                   <label>
                     Kasam
-                    <br />
+                    <br className='hidden lg:block' />
                     bahay
                   </label>
                   <Active />
@@ -260,9 +276,13 @@ const Add = () => {
               </div>
             </div>
 
-            <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>Regularized</label>
-              <div className='!grid grid-cols-5 col-span-4 gap-3'>
+            <div className='!grid grid-cols-5 lg:items-center gap-1'>
+              <label className='col-span-1 mt-2 lg:mt-0'>
+                Regular
+                <br className='lg:hidden' />
+                ized
+              </label>
+              <div className='flex flex-wrap lg:!grid lg:grid-cols-5 col-span-4 gap-3'>
                 <InputText
                   type='date'
                   className='p-inputtext-sm w-full col-span-2'
@@ -277,9 +297,9 @@ const Add = () => {
               </div>
             </div>
 
-            <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>Contract Start</label>
-              <div className='!grid grid-cols-5 col-span-4 gap-3'>
+            <div className='!grid grid-cols-5 lg:items-center'>
+              <label className='col-span-1 mt-2 lg:mt-0'>Contract Start</label>
+              <div className='flex flex-wrap lg:!grid lg:grid-cols-5 col-span-4 gap-3'>
                 <InputText
                   type='date'
                   className='p-inputtext-sm w-full col-span-2'
@@ -300,11 +320,11 @@ const Add = () => {
             </div>
 
             <div className='!grid grid-cols-5 items-center'>
-              <label className='col-span-1'>Tax ID</label>
+              <label className='col-span-1'>TAX ID</label>
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
                 <InputText
                   type='text'
-                  className='p-inputtext-sm w-full col-span-4'
+                  className='p-inputtext-sm w-full col-span-3'
                 />
                 <div className='w-full flex gap-2 items-center col-span-1'>
                   <label>Witheld</label>
@@ -321,7 +341,7 @@ const Add = () => {
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
                 <InputText
                   type='text'
-                  className='p-inputtext-sm w-full col-span-4'
+                  className='p-inputtext-sm w-full col-span-3'
                 />
                 <div className='w-full flex gap-2 items-center col-span-1'>
                   <label>Witheld</label>
@@ -338,7 +358,7 @@ const Add = () => {
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
                 <InputText
                   type='text'
-                  className='p-inputtext-sm w-full col-span-4'
+                  className='p-inputtext-sm w-full col-span-3'
                 />
                 <div className='w-full flex gap-2 items-center col-span-1'>
                   <label>Witheld</label>
@@ -355,7 +375,7 @@ const Add = () => {
               <div className='!grid grid-cols-5 col-span-4 gap-3'>
                 <InputText
                   type='text'
-                  className='p-inputtext-sm w-full col-span-4'
+                  className='p-inputtext-sm w-full col-span-3'
                 />
                 <div className='w-full flex gap-2 items-center col-span-1'>
                   <label>Witheld</label>
@@ -467,6 +487,14 @@ const Add = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className='my-10 flex justify-center gap-4'>
+          <Button
+            type='submit'
+            label='Add Employee'
+          />
+          <Button label='Cancel' />
         </div>
       </form>
     </div>
