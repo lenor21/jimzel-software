@@ -15,9 +15,9 @@ interface BankProps {
 
 const Bank = ({ value, onChange, name, className }: BankProps) => {
   const options: BankOption[] = [
-    { name: 'Metro Bank', code: 'metro_bank' },
-    { name: 'China Bank', code: 'china_bank' },
-    { name: 'BPI', code: 'bpi_bank' },
+    { name: 'Metro Bank', code: 'Metro Bank' },
+    { name: 'China Bank', code: 'China Bank' },
+    { name: 'BPI', code: 'BPI' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

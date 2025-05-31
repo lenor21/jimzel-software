@@ -15,8 +15,8 @@ interface RateTypeProps {
 
 const RateType = ({ value, onChange, name, className }: RateTypeProps) => {
   const options: RateTypeOption[] = [
-    { name: 'Monthly Rate', code: 'monthly_rate' },
-    { name: 'Weekly Rate', code: 'weekly_rate' },
+    { name: 'Monthly Rate', code: 'Monthly Rate' },
+    { name: 'Weekly Rate', code: 'Weekly Rate' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

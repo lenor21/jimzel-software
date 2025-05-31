@@ -15,9 +15,9 @@ interface EmploymentProps {
 
 const Employment = ({ value, onChange, name, className }: EmploymentProps) => {
   const options: EmploymentOption[] = [
-    { name: 'Probationary', code: 'probationary' },
-    { name: 'Regular', code: 'regular' },
-    { name: 'Contractual', code: 'contractual' },
+    { name: 'Probationary', code: 'Probationary' },
+    { name: 'Regular', code: 'Regular' },
+    { name: 'Contractual', code: 'Contractual' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

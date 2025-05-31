@@ -15,10 +15,10 @@ interface PayFrequencyProps {
 
 const PayFrequency = ({ value, onChange, name, className }: PayFrequencyProps) => {
   const options: PayFrequencyOption[] = [
-    { name: 'Monthly', code: 'monthly' },
-    { name: 'SemiMonthly', code: 'semimonthly' },
-    { name: 'Weekly', code: 'weekly' },
-    { name: 'BiWeekly', code: 'biweekly' },
+    { name: 'Monthly', code: 'Monthly' },
+    { name: 'SemiMonthly', code: 'SemiMonthly' },
+    { name: 'Weekly', code: 'Weekly' },
+    { name: 'BiWeekly', code: 'BiWeekly' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

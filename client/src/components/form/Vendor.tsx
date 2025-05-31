@@ -15,9 +15,9 @@ interface VendorProps {
 
 const Vendor = ({ value, onChange, name, className }: VendorProps) => {
   const options: VendorOption[] = [
-    { name: 'Finance Consultant', code: 'finance_vendor' },
-    { name: 'Business Consultant', code: 'business_vendor' },
-    { name: 'HR Consultant', code: 'hr_vendor' },
+    { name: 'Finance Consultant', code: 'Finance Consultant' },
+    { name: 'Business Consultant', code: 'Business Consultant' },
+    { name: 'HR Consultant', code: 'HR Consultant' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

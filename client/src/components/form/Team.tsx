@@ -15,9 +15,9 @@ interface TeamProps {
 
 const Team = ({ value, onChange, name, className }: TeamProps) => {
   const options: TeamOption[] = [
-    { name: 'Finance Team', code: 'finance_team' },
-    { name: 'Business Team', code: 'business_team' },
-    { name: 'HR Team', code: 'hr_team' },
+    { name: 'Finance Team', code: 'Finance Team' },
+    { name: 'Business Team', code: 'Business Team' },
+    { name: 'HR Team', code: 'HR Team' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

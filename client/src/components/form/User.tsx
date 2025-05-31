@@ -15,10 +15,10 @@ interface UserProps {
 
 const User = ({ value, onChange, name, className }: UserProps) => {
   const options: UserOption[] = [
-    { name: 'Admin', code: 'admin' },
-    { name: 'User', code: 'user' },
-    { name: 'Manager', code: 'manager' },
-    { name: 'Supervisor', code: 'supervisor' },
+    { name: 'Admin', code: 'Admin' },
+    { name: 'User', code: 'User' },
+    { name: 'Manager', code: 'Manager' },
+    { name: 'Supervisor', code: 'Supervisor' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

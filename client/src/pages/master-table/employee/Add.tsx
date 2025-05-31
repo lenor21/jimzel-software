@@ -1380,7 +1380,12 @@ const Add = () => {
             type='submit'
             label='Add Employee'
           />
-          <Button label='Cancel' />
+          <Button
+            label='Cancel'
+            onClick={() => {
+              navigate('/master-table/employees');
+            }}
+          />
         </div>
       </form>
     </div>

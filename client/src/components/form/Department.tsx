@@ -15,9 +15,9 @@ interface DepartmentProps {
 
 const Department = ({ value, onChange, name, className }: DepartmentProps) => {
   const options: DepartmentOption[] = [
-    { name: 'Finance Department', code: 'finance_dep' },
-    { name: 'Business Department', code: 'business_dep' },
-    { name: 'HR Department', code: 'hr_dep' },
+    { name: 'Finance Department', code: 'Finance Department' },
+    { name: 'Business Department', code: 'Finance Department' },
+    { name: 'HR Department', code: 'Finance Department' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

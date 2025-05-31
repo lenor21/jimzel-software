@@ -15,8 +15,8 @@ interface SexProps {
 
 const Sex = ({ value, onChange, name, className }: SexProps) => {
   const options: SexOption[] = [
-    { name: 'Male', code: 'male' },
-    { name: 'Female', code: 'female' },
+    { name: 'Male', code: 'Male' },
+    { name: 'Female', code: 'Female' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

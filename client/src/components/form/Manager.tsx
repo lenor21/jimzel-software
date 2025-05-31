@@ -15,9 +15,9 @@ interface ManagerProps {
 
 const Manager = ({ value, onChange, name, className }: ManagerProps) => {
   const options: ManagerOption[] = [
-    { name: 'Jose Rizal', code: 'jose_rizal' },
-    { name: 'Andress Bonifacio', code: 'andress_bonifacio' },
-    { name: 'Juan Luna', code: 'juan_luna' },
+    { name: 'Jose Rizal', code: 'Jose Rizal' },
+    { name: 'Andress Bonifacio', code: 'Andress Bonifacio' },
+    { name: 'Juan Luna', code: 'Juan Luna' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

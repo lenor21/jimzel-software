@@ -15,9 +15,9 @@ interface PositionProps {
 
 const Position = ({ value, onChange, name, className }: PositionProps) => {
   const options: PositionOption[] = [
-    { name: 'President', code: 'president' },
-    { name: 'Secretary', code: 'secretary' },
-    { name: 'Auditor', code: 'auditor' },
+    { name: 'President', code: 'President' },
+    { name: 'Secretary', code: 'Secretary' },
+    { name: 'Auditor', code: 'Auditor' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

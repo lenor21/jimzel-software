@@ -15,8 +15,8 @@ interface LocationProps {
 
 const Location = ({ value, onChange, name, className }: LocationProps) => {
   const options: LocationOption[] = [
-    { name: 'Metro Manila', code: 'metro_manila' },
-    { name: 'Las Vegas', code: 'las_vegas' },
+    { name: 'Metro Manila', code: 'Metro Manila' },
+    { name: 'Las Vegas', code: 'Las Vegas' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;

@@ -15,9 +15,9 @@ interface ProjectProps {
 
 const Project = ({ value, onChange, name, className }: ProjectProps) => {
   const options: ProjectOption[] = [
-    { name: 'Manila Payroll Project', code: 'manila_payroll' },
-    { name: 'Audit Manager', code: 'audit_manager' },
-    { name: 'Jimzel ERP System', code: 'erp_system' },
+    { name: 'Manila Payroll Project', code: 'Manila Payroll Project' },
+    { name: 'Audit Manager', code: 'Audit Manager' },
+    { name: 'Jimzel ERP System', code: 'Jimzel ERP System' },
   ];
 
   const selectedOption = options.find((option) => option.code === value) || null;
