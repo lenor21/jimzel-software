@@ -47,6 +47,8 @@ const Add = () => {
       user_profile: '',
       manager: '',
       vendor: '',
+      email: '',
+      phone: '',
       ctc: '',
       ctc_place: '',
       ctc_date: undefined,
