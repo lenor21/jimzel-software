@@ -38,3 +38,15 @@ Run dev client:
 ```bash
 $ npm run dev
 ```
+
+# Database Set up
+
+Use Mysql Database:
+
+Folder Path:
+
+/server/db/employees.sql
+
+Import employees.sql
+
+
