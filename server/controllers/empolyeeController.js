@@ -326,20 +326,110 @@ const updateEmployee = asyncHandler(async (req, res) => {
   const employeeId = req.params.id;
   const userData = req.body;
   let connection;
+  const adminIP = req.ip;
 
-  if (!userData.username || !userData.email) {
+  if (
+    !userData.employee_id ||
+    !userData.first_name ||
+    !userData.last_name ||
+    !userData.email ||
+    !userData.pay_freq ||
+    !userData.birthday ||
+    !userData.date_hired ||
+    !userData.tax_id ||
+    !userData.sss_gsis ||
+    !userData.phic_id ||
+    !userData.hdmf_id
+  ) {
     res.status(400).json({ message: "Please fill all update fields" });
   }
 
   try {
     connection = await mysqlpool.getConnection();
 
-    const updateQuery = `UPDATE employees SET username = '${userData.username}', email = '${userData.email}', updated_at = CURRENT_TIMESTAMP WHERE id = ${employeeId}`;
+    const fieldsToUpdate = [
+      "employee_id",
+      "first_name",
+      "middle_name",
+      "last_name",
+      "suffix",
+      "address",
+      "city",
+      "province",
+      "zip",
+      "location",
+      "department",
+      "project",
+      "team",
+      "position",
+      "employment",
+      "user_profile",
+      "manager",
+      "vendor",
+      "email",
+      "phone",
+      "ctc",
+      "ctc_place",
+      "ctc_date",
+      "ctc_amount_paid",
+      "notes",
+      "pay_freq",
+      "sex",
+      "active",
+      "birthday",
+      "date_hired",
+      "kasambahay",
+      "regularized",
+      "separated",
+      "contract_start",
+      "contract_end",
+      "minimum_earner",
+      "minimum_daily",
+      "minimum_monthly",
+      "tax_id",
+      "tax_witheld",
+      "sss_gsis",
+      "sss_gsis_witheld",
+      "phic_id",
+      "phic_witheld",
+      "hdmf_id",
+      "hdmf_witheld",
+      "hdmf_account",
+      "bank",
+      "bank_account",
+      "rate_type",
+      "base_monthly_pay",
+      "days_per_month",
+      "hours_per_day",
+      "daily_rate",
+      "hourly_rate",
+      "col_allowance",
+      "represent_allowance",
+      "housing_allowance",
+      "transportation_allowance",
+      "admin_ip",
+    ];
 
-    const [result] = await connection.query(updateQuery, [
-      userData,
-      employeeId,
-    ]);
+    const updateSetClauses = fieldsToUpdate
+      .map((field) => {
+        return `${field} = ?`;
+      })
+      .join(", ");
+
+    const updateQuery = `UPDATE employees SET ${updateSetClauses}, updated_at = CURRENT_TIMESTAMP WHERE id = ?`;
+
+    const values = fieldsToUpdate.map((field) => {
+      if (field === "admin_ip") {
+        return adminIP;
+      }
+
+      return userData[field];
+    });
+    values.push(employeeId);
+
+    // const updateQuery = `UPDATE employees SET username = '${userData.username}', email = '${userData.email}', updated_at = CURRENT_TIMESTAMP WHERE id = ${employeeId}`;
+
+    const [result] = await connection.query(updateQuery, values);
 
     if (result.affectedRows === 0) {
       res.status(404).json({ message: "Employee not found" });

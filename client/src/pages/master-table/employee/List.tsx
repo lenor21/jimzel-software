@@ -20,6 +20,8 @@ const List = () => {
     limit: rows,
   });
 
+  console.log(employeesData);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

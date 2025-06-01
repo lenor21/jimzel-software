@@ -27,6 +27,7 @@ import { clearSelectedEmployee } from '../../../features/employee/employeeSlice'
 import type { RootState } from '../../../app/store';
 import type { Employee } from '../../../types/employee/employeeTypes';
 import { useMemo } from 'react';
+import { useUpdateEmployeeMutation } from '../../../features/employee/employeeApiSlice';
 
 const getEmployeeDefaultValues = (employeeData: Employee | null | undefined): EmployeeFormValues => {
   const toDateString = (dateValue: string | Date | null | undefined): string => {
@@ -34,6 +35,13 @@ const getEmployeeDefaultValues = (employeeData: Employee | null | undefined): Em
     const date = new Date(dateValue);
     if (isNaN(date.getTime())) return '';
     return date.toISOString().split('T')[0];
+  };
+
+  const toBoolean = (value: any): boolean => {
+    if (value === true || value === 1 || value === 'true') {
+      return true;
+    }
+    return false;
   };
 
   return {
@@ -64,25 +72,25 @@ const getEmployeeDefaultValues = (employeeData: Employee | null | undefined): Em
     notes: employeeData?.notes || '',
     pay_freq: employeeData?.pay_freq || '',
     sex: employeeData?.sex || '',
-    active: employeeData?.active ?? false,
+    active: toBoolean(employeeData?.active),
     birthday: toDateString(employeeData?.birthday),
     date_hired: toDateString(employeeData?.date_hired),
-    kasambahay: employeeData?.kasambahay ?? false,
+    kasambahay: toBoolean(employeeData?.active),
     regularized: toDateString(employeeData?.regularized),
     separated: toDateString(employeeData?.separated),
     contract_start: toDateString(employeeData?.contract_start),
     contract_end: toDateString(employeeData?.contract_end),
-    minimum_earner: employeeData?.minimum_earner ?? false,
+    minimum_earner: toBoolean(employeeData?.active),
     minimum_daily: employeeData?.minimum_daily ?? 0,
     minimum_monthly: employeeData?.minimum_monthly ?? 0,
     tax_id: employeeData?.tax_id || '',
-    tax_witheld: employeeData?.tax_witheld ?? false,
+    tax_witheld: toBoolean(employeeData?.active),
     sss_gsis: employeeData?.sss_gsis || '',
-    sss_gsis_witheld: employeeData?.sss_gsis_witheld ?? false,
+    sss_gsis_witheld: toBoolean(employeeData?.active),
     phic_id: employeeData?.phic_id || '',
-    phic_witheld: employeeData?.phic_witheld ?? false,
+    phic_witheld: toBoolean(employeeData?.active),
     hdmf_id: employeeData?.hdmf_id || '',
-    hdmf_witheld: employeeData?.hdmf_witheld ?? false,
+    hdmf_witheld: toBoolean(employeeData?.active),
     hdmf_account: employeeData?.hdmf_account || '',
     bank: employeeData?.bank || '',
     bank_account: employeeData?.bank_account || '',
@@ -104,6 +112,7 @@ const Add = () => {
   const dispatch = useDispatch();
 
   const { selectedEmployee } = useSelector((state: RootState) => state.employee);
+  const [updateEmployee] = useUpdateEmployeeMutation();
 
   const memoizedDefaultValues = useMemo(() => getEmployeeDefaultValues(selectedEmployee), [selectedEmployee]);
 
@@ -120,67 +129,68 @@ const Add = () => {
     console.log(values);
 
     try {
-      // const employee = await addEmployee({
-      //   employee_id: values.employee_id,
-      //   first_name: values.first_name,
-      //   middle_name: values.middle_name,
-      //   last_name: values.last_name,
-      //   suffix: values.suffix,
-      //   address: values.address,
-      //   city: values.city,
-      //   province: values.province,
-      //   zip: values.zip,
-      //   location: values.location,
-      //   department: values.department,
-      //   project: values.project,
-      //   team: values.team,
-      //   position: values.position,
-      //   employment: values.employment,
-      //   user_profile: values.user_profile,
-      //   manager: values.manager,
-      //   vendor: values.vendor,
-      //   email: values.email,
-      //   phone: values.phone,
-      //   ctc: values.ctc,
-      //   ctc_place: values.ctc_place,
-      //   ctc_date: values.ctc_date,
-      //   ctc_amount_paid: values.ctc_amount_paid,
-      //   notes: values.notes,
-      //   pay_freq: values.pay_freq,
-      //   sex: values.sex,
-      //   active: values.active,
-      //   birthday: values.birthday,
-      //   date_hired: values.date_hired,
-      //   kasambahay: values.kasambahay,
-      //   regularized: values.regularized,
-      //   separated: values.separated,
-      //   contract_start: values.contract_start,
-      //   contract_end: values.contract_end,
-      //   minimum_earner: values.minimum_earner,
-      //   minimum_daily: values.minimum_daily,
-      //   minimum_monthly: values.minimum_monthly,
-      //   tax_id: values.tax_id,
-      //   tax_witheld: values.tax_witheld,
-      //   sss_gsis: values.sss_gsis,
-      //   sss_gsis_witheld: values.sss_gsis_witheld,
-      //   phic_id: values.phic_id,
-      //   phic_witheld: values.phic_witheld,
-      //   hdmf_id: values.hdmf_id,
-      //   hdmf_witheld: values.hdmf_witheld,
-      //   hdmf_account: values.hdmf_account,
-      //   bank: values.bank,
-      //   bank_account: values.bank_account,
-      //   rate_type: values.rate_type,
-      //   base_monthly_pay: values.base_monthly_pay,
-      //   days_per_month: values.days_per_month,
-      //   hours_per_day: values.hours_per_day,
-      //   daily_rate: values.daily_rate,
-      //   hourly_rate: values.hourly_rate,
-      //   col_allowance: values.col_allowance,
-      //   represent_allowance: values.represent_allowance,
-      //   housing_allowance: values.housing_allowance,
-      //   transportation_allowance: values.transportation_allowance,
-      // }).unwrap();
+      const employee = await updateEmployee({
+        id: selectedEmployee.id,
+        employee_id: values.employee_id,
+        first_name: values.first_name,
+        middle_name: values.middle_name,
+        last_name: values.last_name,
+        suffix: values.suffix,
+        address: values.address,
+        city: values.city,
+        province: values.province,
+        zip: values.zip,
+        location: values.location,
+        department: values.department,
+        project: values.project,
+        team: values.team,
+        position: values.position,
+        employment: values.employment,
+        user_profile: values.user_profile,
+        manager: values.manager,
+        vendor: values.vendor,
+        email: values.email,
+        phone: values.phone,
+        ctc: values.ctc,
+        ctc_place: values.ctc_place,
+        ctc_date: values.ctc_date,
+        ctc_amount_paid: values.ctc_amount_paid,
+        notes: values.notes,
+        pay_freq: values.pay_freq,
+        sex: values.sex,
+        active: values.active,
+        birthday: values.birthday,
+        date_hired: values.date_hired,
+        kasambahay: values.kasambahay,
+        regularized: values.regularized,
+        separated: values.separated,
+        contract_start: values.contract_start,
+        contract_end: values.contract_end,
+        minimum_earner: values.minimum_earner,
+        minimum_daily: values.minimum_daily,
+        minimum_monthly: values.minimum_monthly,
+        tax_id: values.tax_id,
+        tax_witheld: values.tax_witheld,
+        sss_gsis: values.sss_gsis,
+        sss_gsis_witheld: values.sss_gsis_witheld,
+        phic_id: values.phic_id,
+        phic_witheld: values.phic_witheld,
+        hdmf_id: values.hdmf_id,
+        hdmf_witheld: values.hdmf_witheld,
+        hdmf_account: values.hdmf_account,
+        bank: values.bank,
+        bank_account: values.bank_account,
+        rate_type: values.rate_type,
+        base_monthly_pay: values.base_monthly_pay,
+        days_per_month: values.days_per_month,
+        hours_per_day: values.hours_per_day,
+        daily_rate: values.daily_rate,
+        hourly_rate: values.hourly_rate,
+        col_allowance: values.col_allowance,
+        represent_allowance: values.represent_allowance,
+        housing_allowance: values.housing_allowance,
+        transportation_allowance: values.transportation_allowance,
+      }).unwrap();
 
       Swal.fire({
         color: '#0a0a0a',
@@ -191,7 +201,7 @@ const Add = () => {
         timer: 1500,
       });
 
-      navigate('/master-table/employees');
+      // navigate('/master-table/employees');
     } catch (err: any) {
       Swal.fire({
         color: '#0a0a0a',
@@ -1406,6 +1416,8 @@ const Add = () => {
             }}
           />
         </div>
+
+        <p className='text-[12px]'>Update by: {`${selectedEmployee.admin_ip}-${selectedEmployee.updated_at.toLocaleString()}`}</p>
       </form>
     </div>
   );
