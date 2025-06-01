@@ -28,6 +28,7 @@ import type { RootState } from '../../../app/store';
 import type { Employee } from '../../../types/employee/employeeTypes';
 import { useMemo } from 'react';
 import { useUpdateEmployeeMutation } from '../../../features/employee/employeeApiSlice';
+import { addSelectedEmployee } from '../../../features/employee/employeeSlice';
 
 const getEmployeeDefaultValues = (employeeData: Employee | null | undefined): EmployeeFormValues => {
   const toDateString = (dateValue: string | Date | null | undefined): string => {
@@ -107,7 +108,7 @@ const getEmployeeDefaultValues = (employeeData: Employee | null | undefined): Em
   };
 };
 
-const Add = () => {
+const Update = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -126,7 +127,7 @@ const Add = () => {
   });
 
   const onSubmit: SubmitHandler<EmployeeFormValues> = async (values: EmployeeFormValues) => {
-    console.log(values);
+    console.log(values.rate_type);
 
     try {
       const employee = await updateEmployee({
@@ -200,6 +201,8 @@ const Add = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+
+      dispatch(addSelectedEmployee(employee));
 
       // navigate('/master-table/employees');
     } catch (err: any) {
@@ -1423,4 +1426,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default Update;

@@ -23,11 +23,14 @@ import { Checkbox } from 'primereact/checkbox';
 import { useAddEmployeeMutation } from '../../../features/employee/employeeApiSlice';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addSelectedEmployee } from '../../../features/employee/employeeSlice';
 
 const Add = () => {
   const [addEmployee] = useAddEmployeeMutation();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -99,8 +102,6 @@ const Add = () => {
   });
 
   const onSubmit: SubmitHandler<EmployeeFormValues> = async (values: EmployeeFormValues) => {
-    console.log(values);
-
     try {
       const employee = await addEmployee({
         employee_id: values.employee_id,
@@ -173,6 +174,7 @@ const Add = () => {
         timer: 1500,
       });
 
+      dispatch(addSelectedEmployee(employee));
       navigate('/master-table/employees');
     } catch (err: any) {
       Swal.fire({

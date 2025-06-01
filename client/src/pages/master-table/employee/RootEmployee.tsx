@@ -3,7 +3,6 @@ import { Button } from 'primereact/button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
-import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useDeleteEmployeeMutation } from '../../../features/employee/employeeApiSlice';
 import { clearSelectedEmployee } from '../../../features/employee/employeeSlice';
@@ -19,12 +18,6 @@ const Root = () => {
 
   const dispatch = useDispatch();
   const location = useLocation();
-
-  useEffect(() => {
-    if (selectedEmployee) {
-      console.log(selectedEmployee);
-    }
-  }, [selectedEmployee]);
 
   const handleEmployeeAdd = () => {
     dispatch(clearSelectedEmployee());

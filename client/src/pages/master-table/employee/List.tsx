@@ -20,14 +20,11 @@ const List = () => {
     limit: rows,
   });
 
-  console.log(employeesData);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (employeesDataRaw) {
       const employees = employeesDataRaw.employees;
-      console.log(selectedEmployee);
 
       const processedEmployees = employees.map((employee: Employee) => {
         return {
