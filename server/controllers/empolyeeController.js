@@ -2,6 +2,34 @@ var mysqlpool = require("../dbconfig");
 const asyncHandler = require("express-async-handler");
 
 // @desc: get all employees
+// @route: GET /api/employees/csv
+const getEmployeesCSV = asyncHandler(async (req, res) => {
+  let connection;
+
+  try {
+    connection = await mysqlpool.getConnection();
+
+    const selectQuery = `
+      SELECT *
+      FROM employees
+      ORDER BY id DESC
+    `;
+    const [employees] = await connection.query(selectQuery);
+
+    res.status(200).json(employees);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to retrieve employees",
+      error: error.message,
+    });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+});
+
+// @desc: get all employees
 // @route: GET /api/employees
 const getEmployees = asyncHandler(async (req, res) => {
   let connection;
@@ -454,6 +482,7 @@ const updateEmployee = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getEmployeesCSV,
   getEmployees,
   addEmployee,
   getEmployee,

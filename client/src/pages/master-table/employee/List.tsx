@@ -6,6 +6,7 @@ import { Paginator, type PaginatorPageChangeEvent } from 'primereact/paginator';
 import { addSelectedEmployee } from '../../../features/employee/employeeSlice';
 import { useDispatch } from 'react-redux';
 import type { Employee } from '../../../types/employee/employeeTypes';
+import Loading from '../../../components/Loading';
 
 const List = () => {
   const [employeesData, setEmployeesData] = useState<Employee[]>([]);
@@ -15,7 +16,7 @@ const List = () => {
   const [rows, setRows] = useState(5);
   const [first, setFirst] = useState(0);
 
-  const { data: employeesDataRaw } = useGetEmployeesQuery({
+  const { data: employeesDataRaw, isLoading } = useGetEmployeesQuery({
     page: currentPage,
     limit: rows,
   });
@@ -84,6 +85,10 @@ const List = () => {
       day: 'numeric',
     });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>

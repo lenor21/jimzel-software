@@ -4,6 +4,13 @@ const EMPLOYEES_URL = '/api/employees';
 
 export const employeesApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getEmployeesCSV: builder.query({
+      query: () => ({
+        url: `${EMPLOYEES_URL}/csv`,
+        method: 'GET',
+      }),
+      providesTags: ['Employee'],
+    }),
     getEmployees: builder.query({
       query: (data) => ({
         url: `${EMPLOYEES_URL}?page=${data.page}&limit=${data.limit}`,
@@ -44,4 +51,11 @@ export const employeesApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetEmployeesQuery, useAddEmployeeMutation, useGetEmployeeQuery, useUpdateEmployeeMutation, useDeleteEmployeeMutation } = employeesApiSlice;
+export const {
+  useGetEmployeesCSVQuery,
+  useGetEmployeesQuery,
+  useAddEmployeeMutation,
+  useGetEmployeeQuery,
+  useUpdateEmployeeMutation,
+  useDeleteEmployeeMutation,
+} = employeesApiSlice;

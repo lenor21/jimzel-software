@@ -7,8 +7,10 @@ const {
   getEmployee,
   deleteEmployee,
   updateEmployee,
+  getEmployeesCSV,
 } = require("../controllers/empolyeeController");
 
+router.get("/csv", getEmployeesCSV);
 router.get("/", getEmployees);
 router.post("/", addEmployee);
 router.get("/:id", getEmployee);

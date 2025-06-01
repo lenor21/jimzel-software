@@ -234,7 +234,6 @@ const View = () => {
                   {...field}
                   className={`p-inputtext-sm ${errors.employee_id && 'p-invalid'}`}
                   readOnly={true}
-                  readOnly={true}
                 />
               )}
             />

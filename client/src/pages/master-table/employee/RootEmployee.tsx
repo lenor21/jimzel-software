@@ -4,20 +4,39 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../../app/store';
 import Swal from 'sweetalert2';
-import { useDeleteEmployeeMutation } from '../../../features/employee/employeeApiSlice';
+import { useDeleteEmployeeMutation, useGetEmployeesCSVQuery } from '../../../features/employee/employeeApiSlice';
 import { clearSelectedEmployee } from '../../../features/employee/employeeSlice';
 import { useDispatch } from 'react-redux';
 import type { Employee } from '../../../types/employee/employeeTypes';
+import { convertJsonToCsv } from '../../../utils/csvConverter';
+import { useEffect, useState } from 'react';
 
 const Root = () => {
+  const [employeesDataCSV, setEmployeesDataCSV] = useState<Employee[]>([]);
+
   const navigate = useNavigate();
 
   const { selectedEmployee } = useSelector((state: RootState) => state.employee);
 
+  const { data: employeesCSVDataRaw, refetch } = useGetEmployeesCSVQuery(selectedEmployee);
   const [deleteEmployee] = useDeleteEmployeeMutation();
 
   const dispatch = useDispatch();
   const location = useLocation();
+
+  useEffect(() => {
+    if (employeesCSVDataRaw) {
+      const employees = employeesCSVDataRaw;
+
+      const processedEmployees = employees.map((employee: Employee) => {
+        return {
+          ...employee,
+        };
+      });
+
+      setEmployeesDataCSV(processedEmployees);
+    }
+  }, [employeesCSVDataRaw]);
 
   const handleEmployeeAdd = () => {
     dispatch(clearSelectedEmployee());
@@ -112,6 +131,43 @@ const Root = () => {
     }
   };
 
+  const handleDownloadCsv = () => {
+    if (employeesDataCSV && employeesDataCSV.length > 0) {
+      convertJsonToCsv(employeesDataCSV, 'employee_list.csv');
+    } else {
+      Swal.fire({
+        color: '#0a0a0a',
+        position: 'center',
+        icon: 'error',
+        title: `No employees data available to download.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
+  const refreshEmployeeList = () => {
+    let timerInterval: number = 0;
+    Swal.fire({
+      title: 'Reload employee list!',
+      html: 'Loading employee list data.',
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer');
+        refetch();
+      }
+    });
+  };
+
   return (
     <div className='container mx-auto px-3 lg:px-6'>
       <h1 className='my-4 font-bold text-2xl'>EMPLOYEE MASTER</h1>
@@ -152,10 +208,14 @@ const Root = () => {
               <Button
                 icon='pi pi-refresh'
                 className='py-1 px-3 bg-[#679e37]'
+                tooltip='Reload list'
+                onClick={refreshEmployeeList}
               />
               <Button
                 icon='pi pi-download'
                 className='py-1 px-3 bg-[#679e37]'
+                onClick={handleDownloadCsv}
+                tooltip='Download list'
               />
             </div>
           )}
