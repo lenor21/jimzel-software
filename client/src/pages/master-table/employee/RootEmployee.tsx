@@ -15,14 +15,13 @@ const Root = () => {
   const [employeesDataCSV, setEmployeesDataCSV] = useState<Employee[]>([]);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   const { selectedEmployee } = useSelector((state: RootState) => state.employee);
 
   const { data: employeesCSVDataRaw, refetch } = useGetEmployeesCSVQuery(selectedEmployee);
   const [deleteEmployee] = useDeleteEmployeeMutation();
-
-  const dispatch = useDispatch();
-  const location = useLocation();
 
   useEffect(() => {
     if (employeesCSVDataRaw) {
@@ -221,8 +220,16 @@ const Root = () => {
           )}
         </div>
         <div className='flex mb-2 !border-b-2 !border-b-[#e7e7e7]'>
-          <p className='block px-3 py-2'>LIST</p>
-          <p className='block px-3 py-2 !border-b-2 !border-b-[#6366f1] !mb-[-2px] text-[#6366f1]'>DETAIL</p>
+          <p className={`block px-3 py-2 ${location.pathname === '/master-table/employees' && '!border-b-2 !border-b-[#6366f1] !mb-[-2px] text-[#6366f1]'}`}>
+            LIST
+          </p>
+          <p
+            className={`block px-3 py-2 ${
+              location.pathname === `/master-table/employees/${selectedEmployee?.id}` && '!border-b-2 !border-b-[#6366f1] !mb-[-2px] text-[#6366f1]'
+            }`}
+          >
+            DETAIL
+          </p>
         </div>
         <Outlet />
       </div>
