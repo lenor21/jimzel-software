@@ -44,6 +44,7 @@ $ npm run dev
 Use Mysql Database:
 
 Database connection:
+
 Folder Path:
 
 ```bash
@@ -65,6 +66,7 @@ debug: false,
 ```
 
 Import employees.sql
+
 Folder Path:
 
 ```bash
