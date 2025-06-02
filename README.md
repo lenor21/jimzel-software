@@ -4,7 +4,7 @@
 Clone repository to your local:
 
 ```bash
-$ git clone (https://github.com/lenor21/jimzel-software.git)
+$ git clone https://github.com/lenor21/jimzel-software.git
 ```
 
 
