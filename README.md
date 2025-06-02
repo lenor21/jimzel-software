@@ -28,6 +28,12 @@ Run dev client:
 $ npm run dev
 ```
 
+Local Url Path:
+
+```bash
+http://localhost:3001/master-table/employees
+```
+
 
 # Backend Set up
 
@@ -82,7 +88,6 @@ Folder Path:
 ```bash
 /server/db/employees.sql
 ```
-
 
 
 
