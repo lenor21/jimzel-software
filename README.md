@@ -1,5 +1,13 @@
 # Coding Challenge: CRUD Functionality for ManilaPayroll.com Master File
 
+
+Clone repository to your local:
+
+```bash
+$ git clone (https://github.com/lenor21/jimzel-software.git)
+```
+
+
 # Frontend Set up
 
 Open client folder:
@@ -20,6 +28,7 @@ Run dev client:
 $ npm run dev
 ```
 
+
 # Backend Set up
 
 Open server folder:
@@ -38,6 +47,7 @@ Run dev client:
 ```bash
 $ npm run dev
 ```
+
 
 # Database Set up
 
